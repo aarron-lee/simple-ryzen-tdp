@@ -1,0 +1,14 @@
+{
+  "name": "simple-ryzen-tdp",
+  "version": "1.0.0",
+  "description": "simple TDP control for ryzenadj",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Aarron Lee",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^21.3.0"
+  }
+}
