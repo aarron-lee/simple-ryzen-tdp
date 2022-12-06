@@ -1,37 +1,59 @@
+'use strict';
+const { app, BrowserWindow, ipcMain } = require('electron');
+const path = require("path");
+const childProcess = require('child_process');
 
-let slider = document.getElementById("customTDP");
-let ryzenAdjPathInput = document.getElementById("ryzenadjPath")
+let window;
 
-const BOOST_TDP = 2;
-const RYZENADJ_PATH = "ryzenadjPath"
+function createWindow() {
+    window = new BrowserWindow({
+        width: 640,
+        height: 360,
+        show: false,
+        webPreferences: {
+            nodeIntegration: false,
+            contextIsolation: true,
+            preload: path.join(__dirname, 'preload.js')
+        }
+    });
 
-function handleError(err, stdout, stderr) {
-    if (err) {
-        console.log(`exec error: ${err}`);
-        return;
-    }else{
-        console.log(`${stdout}`);
-    }
+    window.loadFile('index.html')
+        .then(() => { window.show(); });
+
+    return window;
 }
 
-document.addEventListener('DOMContentLoaded', (e) => {
-    if(window.localStorage.getItem(RYZENADJ_PATH)) {
-        ryzenAdjPathInput.value = window.localStorage.getItem(RYZENADJ_PATH)
+app.whenReady().then(() => {
+  createWindow()
+
+  app.on('activate', () => {
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createWindow();
     }
-})
+  });
+});
 
-slider.addEventListener('change', (e) => {
-	document.getElementById("tdpView").innerHTML = e.target.value;
-	const targetTDP = Number(e.target.value) * 1000;
-	const boostTDP = targetTDP + (BOOST_TDP*1000);
+app.on('window-all-closed', () => {
+    if (process.platform !== 'darwin') {
+        app.quit();
+    }
+});
 
-    const path = window.localStorage.getItem(RYZENADJ_PATH)
+ipcMain.on('updateTdp', (e, [ryzenadjPath, tdp, boostTdp]) => {
+    console.log(ryzenadjPath, tdp, boostTdp)
+    let script = childProcess.spawn('sudo', [ryzenadjPath, '-a', tdp, '-b', boostTdp, '-c', tdp]);
 
-    window.ipcRender.send('updateTdp', [path, `${targetTDP}`, `${boostTDP}`])
-})
+    // console.log('PID: ' + script.pid);
 
-ryzenAdjPathInput.addEventListener('change', (e) => {
-    const path = e.target.value;
+    script.stdout.on('data', (data) => {
+        console.log('stdout: ' + data);
+    });
 
-    window.localStorage.setItem(RYZENADJ_PATH, path)
+    script.stderr.on('data', (err) => {
+        console.log('stderr: ' + err);
+    });
+
+    script.on('exit', (code) => {
+        console.log('Exit Code: ' + code);
+    });
 })
