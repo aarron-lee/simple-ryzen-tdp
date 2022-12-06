@@ -18,13 +18,24 @@ function createTray() {
         setTdp(tdp)
     }
 
+    const toggleWindow = () => {
+        const windowIsVisible = window.isVisible()
+        if(windowIsVisible) {
+            window.hide()
+        } else {
+            window.show()
+        }
+    }
+
     const contextMenu = Menu.buildFromTemplate([
+        { label: 'toggle window', click: toggleWindow },
         { label: '5W TDP', type: 'radio', value: 5, click },
         { label: '8W TDP', type: 'radio', value: 8, click },
         { label: '12W TDP', type: 'radio', value: 12, click },
         { label: '15W TDP', type: 'radio', value: 15, click },
         { label: '18W TDP', type: 'radio', value: 18, click },
         { label: '22W TDP', type: 'radio', value: 22, click },
+        { label: 'Quit', click: () => app.quit() },
     ])
 
     tray.setToolTip('Simple Ryzen TDP')
