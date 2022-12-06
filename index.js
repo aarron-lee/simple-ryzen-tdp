@@ -41,19 +41,19 @@ app.on('window-all-closed', () => {
 
 ipcMain.on('updateTdp', (e, [ryzenadjPath, tdp, boostTdp]) => {
     console.log(ryzenadjPath, tdp, boostTdp)
-    let script = childProcess.spawn('bash', ['updateTdp.sh', ryzenadjPath, tdp, boostTdp]);
+    let script = childProcess.spawn('sudo', [ryzenadjPath, '-a', tdp, '-b', boostTdp, '-c', tdp]);
 
     // console.log('PID: ' + script.pid);
 
-    // script.stdout.on('data', (data) => {
-    //     console.log('stdout: ' + data);
-    // });
+    script.stdout.on('data', (data) => {
+        console.log('stdout: ' + data);
+    });
 
-    // script.stderr.on('data', (err) => {
-    //     console.log('stderr: ' + err);
-    // });
+    script.stderr.on('data', (err) => {
+        console.log('stderr: ' + err);
+    });
 
-    // script.on('exit', (code) => {
-    //     console.log('Exit Code: ' + code);
-    // });
+    script.on('exit', (code) => {
+        console.log('Exit Code: ' + code);
+    });
 })
