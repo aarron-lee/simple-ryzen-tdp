@@ -118,13 +118,15 @@ function setTdp(tdp) {
 }
 
 function sendTdpData() {
-    let tdpDataScript = ryzenadj(['-i']);
+    if (getItem(RYZENADJ_PATH)) {
+        let tdpDataScript = ryzenadj(['-i']);
 
-    tdpDataScript.stdout.on('data', data => {
-        const parsedData = Buffer.from(data).toString()
-        console.log(parsedData)
-        window.webContents.send('tdpInfo', parsedData)
-    })
+        tdpDataScript.stdout.on('data', data => {
+            const parsedData = Buffer.from(data).toString()
+            console.log(parsedData)
+            window.webContents.send('tdpInfo', parsedData)
+        })
+    }
 }
 
 ipcMain.addListener('setRyzenadjPath', (e, path) => {
