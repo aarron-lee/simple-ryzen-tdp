@@ -39,9 +39,9 @@ app.on('window-all-closed', () => {
     }
 });
 
-ipcMain.on('updateTdp', (e, [tdp, boostTdp]) => {
-    console.log(tdp, boostTdp)
-    let script = childProcess.spawn('bash', ['updateTdp.sh', tdp, boostTdp]);
+ipcMain.on('updateTdp', (e, [ryzenadjPath, tdp, boostTdp]) => {
+    console.log(ryzenadjPath, tdp, boostTdp)
+    let script = childProcess.spawn('bash', ['updateTdp.sh', ryzenadjPath, tdp, boostTdp]);
 
     // console.log('PID: ' + script.pid);
 
