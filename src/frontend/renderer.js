@@ -25,9 +25,9 @@ ryzenAdjPathInput.addEventListener('change', (e) => {
     const path = e.target.value;
 
     window.localStorage.setItem(RYZENADJ_PATH, path)
+    window.ipcRender.send('setRyzenadjPath', path)
 })
 
 window.ipcRender.receive('tdpInfo', (...args) => {
-    console.log(args)
     document.getElementById('tdpDetails').innerHTML= args
 })

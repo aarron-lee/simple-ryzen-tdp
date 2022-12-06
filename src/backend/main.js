@@ -2,6 +2,11 @@
 const { app, BrowserWindow, Tray, Menu, ipcMain } = require('electron');
 const path = require("path");
 const childProcess = require('child_process');
+const { initializeSettings } = require('./settings')
+
+const RYZENADJ_PATH = "ryzenadjPath"
+
+const { setItem, getItem } = initializeSettings(app)
 
 let window, tray;
 
@@ -66,8 +71,14 @@ function ryzenadj(path, args) {
     return script
 }
 
-ipcMain.on('updateTdp', (e, [ryzenadjPath, tdp, boostTdp]) => {
+ipcMain.addListener('setRyzenadjPath', (e, path) => {
+    setItem(RYZENADJ_PATH, path)
+})
+
+ipcMain.addListener('updateTdp', (e, [_ryzenadjPath, tdp, boostTdp]) => {
     const tdpArgs = ['-a', tdp, '-b', boostTdp, '-c', tdp]
+
+    const ryzenadjPath = getItem(RYZENADJ_PATH)
 
     let script = ryzenadj(ryzenadjPath, tdpArgs)
 
