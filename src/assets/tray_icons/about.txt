@@ -1,0 +1,6 @@
+This favicon was generated using the following font:
+
+- Font Title: Libre Franklin
+- Font Author: Copyright 2020 The LibreFranklin Project Authors (https://github.com/impallari/Libre-Franklin)
+- Font Source: http://fonts.gstatic.com/s/librefranklin/v13/jizOREVItHgc8qDIbSTKq4XkRg8T88bjFuXOnduhLsWUB9rIb-JH1g.ttf
+- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL))

@@ -1,9 +1,25 @@
 'use strict';
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, Tray, Menu, ipcMain } = require('electron');
 const path = require("path");
 const childProcess = require('child_process');
 
-let window;
+let window, tray;
+
+function createTray() {
+    tray = new Tray(path.join(__dirname, '../assets/tray_icons/favicon-32x32.png'))
+
+    const contextMenu = Menu.buildFromTemplate([
+        { label: '5W TDP', type: 'radio', value: 5 },
+        { label: '8W TDP', type: 'radio', value: 8 },
+        { label: '12W TDP', type: 'radio', value: 12 },
+        { label: '15W TDP', type: 'radio', value: 15 },
+        { label: '18W TDP', type: 'radio', value: 18 },
+        { label: '22W TDP', type: 'radio', value: 22 },
+    ])
+
+    tray.setToolTip('Simple Ryzen TDP')
+    tray.setContextMenu(contextMenu)
+}
 
 function createWindow() {
     window = new BrowserWindow({
@@ -21,6 +37,8 @@ function createWindow() {
 
     window.loadFile('index.html')
         .then(() => { window.show(); })
+
+    createTray()
 
     return window;
 }
