@@ -17,4 +17,5 @@ slider.addEventListener('change', (e) => {
 	const targetTDP = Number(e.target.value) * 1000;
 	const boostTDP = targetTDP + (BOOST_TDP*1000);
 
+    window.ipcRender.send('runScript', `${targetTDP}`)
 })
