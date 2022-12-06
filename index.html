@@ -3,26 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-    />
-    <meta
-      http-equiv="X-Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-    />
     <title>Simple Ryzen TDP</title>
+    <style>
+      body {
+        display:flex;
+        flex-direction: row;
+      }
+      body > div {
+        display: flex;
+        flex-direction: column;
+      }
+    </style>
   </head>
   <body>
-    <label class="form-label" for="customTDP">TDP</label>
-    <div class="range">
-	    <input type="range" id="customTDP" min="4" max="18" step="1"/>
-    </div>
-    <div id="tdpView"></div>
-    <br/>
-    <label class="form-label" for="ryzenadjPath">ryzenadj path</label>
     <div>
-      <input type="text" id="ryzenadjPath" placeholder="input path to ryzenAdj binary"/>
+      <label class="form-label" for="customTDP">TDP</label>
+      <div class="range">
+        <input type="range" style="width:250px" id="customTDP" min="4" max="18" step="1"/>
+      </div>
+      <div id="tdpView"></div>
+      <br/>
+      <label class="form-label" for="ryzenadjPath">ryzenadj path</label>
+      <div>
+        <input type="text" id="ryzenadjPath" placeholder="input path to ryzenAdj binary"/>
+      </div>
+    </div>
+    <div>
+      <pre id="tdpDetails"></pre>
     </div>
   </body>
 

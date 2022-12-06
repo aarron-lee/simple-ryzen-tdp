@@ -29,4 +29,5 @@ ryzenAdjPathInput.addEventListener('change', (e) => {
 
 window.ipcRender.receive('tdpInfo', (...args) => {
     console.log(args)
+    document.getElementById('tdpDetails').innerHTML= args
 })
