@@ -10,7 +10,7 @@ function initializeSettings(app) {
     console.log(SETTINGS_PATH)
 
     const saveSettings = () => {
-        fs.writeFileSync(SETTINGS_PATH, JSON.stringify(settings))
+        fs.writeFileSync(SETTINGS_PATH, JSON.stringify(settings, null, 2))
     }
 
     try {

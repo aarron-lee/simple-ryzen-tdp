@@ -46,10 +46,11 @@ function createTray() {
 }
 
 function createWindow() {
+    const show = !Boolean(getItem(IS_WINDOW_HIDDEN))
     window = new BrowserWindow({
         width: 1280,
         height: 720,
-        show: !Boolean(getItem(IS_WINDOW_HIDDEN)),
+        show,
         webPreferences: {
             nodeIntegration: false,
             contextIsolation: true,
