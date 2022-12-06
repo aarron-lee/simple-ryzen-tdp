@@ -72,6 +72,15 @@ function ryzenadj(args) {
     return script
 }
 
+function setTdp(tdp) {
+    const targetTdp = Number(tdp) * 1000;
+    const boostTdp = targetTdp + 2000
+
+    const tdpArgs = ['-a', targetTdp, '-b', boostTdp, '-c', targetTdp]
+
+    return ryzenadj(tdpArgs)
+}
+
 function sendTdpData() {
     let tdpDataScript = ryzenadj(['-i']);
 
@@ -86,10 +95,8 @@ ipcMain.addListener('setRyzenadjPath', (e, path) => {
     setItem(RYZENADJ_PATH, path)
 })
 
-ipcMain.addListener('updateTdp', (e, [tdp, boostTdp]) => {
-    const tdpArgs = ['-a', tdp, '-b', boostTdp, '-c', tdp]
-
-    let script = ryzenadj(tdpArgs)
+ipcMain.addListener('updateTdp', (e, tdp) => {
+    const script = setTdp(tdp)
 
     // console.log('PID: ' + script.pid);
 

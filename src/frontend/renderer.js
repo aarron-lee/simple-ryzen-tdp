@@ -13,10 +13,9 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
 slider.addEventListener('change', (e) => {
 	document.getElementById("tdpView").innerHTML = e.target.value;
-	const targetTDP = Number(e.target.value) * 1000;
-	const boostTDP = targetTDP + (BOOST_TDP*1000);
+	const targetTDP = Number(e.target.value);
 
-    window.ipcRender.send('updateTdp', [`${targetTDP}`, `${boostTDP}`])
+    window.ipcRender.send('updateTdp', targetTDP)
 })
 
 ryzenAdjPathInput.addEventListener('change', (e) => {
