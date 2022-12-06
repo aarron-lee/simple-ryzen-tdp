@@ -13,13 +13,18 @@ let window, tray;
 function createTray() {
     tray = new Tray(path.join(__dirname, '../assets/tray_icons/favicon-32x32.png'))
 
+    const click = (e) => {
+        const tdp = e.value;
+        setTdp(tdp)
+    }
+
     const contextMenu = Menu.buildFromTemplate([
-        { label: '5W TDP', type: 'radio', value: 5 },
-        { label: '8W TDP', type: 'radio', value: 8 },
-        { label: '12W TDP', type: 'radio', value: 12 },
-        { label: '15W TDP', type: 'radio', value: 15 },
-        { label: '18W TDP', type: 'radio', value: 18 },
-        { label: '22W TDP', type: 'radio', value: 22 },
+        { label: '5W TDP', type: 'radio', value: 5, click },
+        { label: '8W TDP', type: 'radio', value: 8, click },
+        { label: '12W TDP', type: 'radio', value: 12, click },
+        { label: '15W TDP', type: 'radio', value: 15, click },
+        { label: '18W TDP', type: 'radio', value: 18, click },
+        { label: '22W TDP', type: 'radio', value: 22, click },
     ])
 
     tray.setToolTip('Simple Ryzen TDP')
@@ -78,7 +83,24 @@ function setTdp(tdp) {
 
     const tdpArgs = ['-a', targetTdp, '-b', boostTdp, '-c', targetTdp]
 
-    return ryzenadj(tdpArgs)
+    const script = ryzenadj(tdpArgs)
+
+    console.log('PID: ' + script.pid);
+
+    script.stdout.on('data', (data) => {
+        console.log('stdout: ' + data);
+
+        // success, fetch TDP data + send back to renderer
+        sendTdpData()
+    });
+
+    script.stderr.on('data', (err) => {
+        console.log('stderr: ' + err);
+    });
+
+    script.on('exit', (code) => {
+        console.log('Exit Code: ' + code);
+    });
 }
 
 function sendTdpData() {
@@ -96,22 +118,5 @@ ipcMain.addListener('setRyzenadjPath', (e, path) => {
 })
 
 ipcMain.addListener('updateTdp', (e, tdp) => {
-    const script = setTdp(tdp)
-
-    // console.log('PID: ' + script.pid);
-
-    script.stdout.on('data', (data) => {
-        console.log('stdout: ' + data);
-
-        // success, fetch TDP data + send back to renderer
-        sendTdpData()
-    });
-
-    script.stderr.on('data', (err) => {
-        console.log('stderr: ' + err);
-    });
-
-    script.on('exit', (code) => {
-        console.log('Exit Code: ' + code);
-    });
+    setTdp(tdp)
 })
