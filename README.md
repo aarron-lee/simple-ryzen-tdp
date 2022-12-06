@@ -1,8 +1,10 @@
 # Simple Ryzen TDP
 
-This is a very simple TDP app that wraps ryzenadj
+This is a very simple Linux TDP app that wraps ryzenadj
 
 # Configure and usage
+
+compile AppImage via `npm run package`, which will create the appimage file in the `dist` directory.
 
 compile a ryzenadj binary, see [ryzenadj readme](https://github.com/FlyGoat/RyzenAdj#installation)
 
@@ -13,6 +15,6 @@ e.g.
 ./configure.sh path_to_ryzenadj
 ```
 
-then run the simple ryzen tdp app, and add the filepath to ryzenadj in the appropriate text input.
+then run the simple ryzen tdp appimage, and add the full filepath to ryzenadj binary in the appropriate text input.
 
 The TDP slider should work after all configuration is complete
