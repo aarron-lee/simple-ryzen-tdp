@@ -4,7 +4,8 @@ const path = require("path");
 const childProcess = require('child_process');
 const { initializeSettings } = require('./settings')
 
-const RYZENADJ_PATH = "ryzenadjPath"
+const RYZENADJ_PATH = "ryzenadjPath";
+const IS_WINDOW_HIDDEN = "isWindowHidden";
 
 const { setItem, getItem } = initializeSettings(app)
 
@@ -22,8 +23,10 @@ function createTray() {
         const windowIsVisible = window.isVisible()
         if(windowIsVisible) {
             window.hide()
+            setItem(IS_WINDOW_HIDDEN, true)
         } else {
             window.show()
+            setItem(IS_WINDOW_HIDDEN, false)
         }
     }
 
@@ -46,7 +49,7 @@ function createWindow() {
     window = new BrowserWindow({
         width: 1280,
         height: 720,
-        show: false,
+        show: !Boolean(getItem(IS_WINDOW_HIDDEN)),
         webPreferences: {
             nodeIntegration: false,
             contextIsolation: true,
@@ -57,7 +60,6 @@ function createWindow() {
     window.setMenuBarVisibility(false)
 
     window.loadFile('index.html')
-        .then(() => { window.show(); })
         .then(sendTdpData)
 
     createTray()
