@@ -5,11 +5,30 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "start": "electron .",
+    "package": "electron-builder -l"
+  },
+  "build": {
+    "appId": "com.aarronlee.simple-ryzen-tdp",
+    "productName": "Simple Ryzen TDP",
+    "artifactName": "SimpleRyzenTDP-${version}.${ext}",
+    "files": [
+      "**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "app": "./",
+      "output": "./dist",
+      "buildResources": "./build"
+    },
+    "linux": {
+      "target": "AppImage"
+    }
   },
   "author": "Aarron Lee",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^21.3.0"
+    "electron": "^21.3.0",
+    "electron-builder": "^23.6.0"
   }
 }
