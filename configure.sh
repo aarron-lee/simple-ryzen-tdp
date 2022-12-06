@@ -20,8 +20,8 @@ if test -f "$FILE"; then
     echo "Adding password free sudo access to ryzenadj for user ${SUDO_USER}:"
     echo $1/ryzenadj
     cat <<-EOF > "/etc/sudoers.d/simple_ryzen_tdp_sudo"
-    ${SUDO_USER} ALL=(ALL) NOPASSWD: $FILE*
-    EOF
+${SUDO_USER} ALL=(ALL) NOPASSWD: $FILE*
+EOF
 else
     echo "$FILE doesn't exist"
 fi
