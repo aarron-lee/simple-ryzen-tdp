@@ -2,6 +2,8 @@
 
 This is a very simple Linux TDP app that wraps ryzenadj
 
+![screenshot](./simple-ryzen-tdp.png)
+
 # Configure and usage
 
 compile AppImage via `npm run package`, which will create the appimage file in the `dist` directory.
