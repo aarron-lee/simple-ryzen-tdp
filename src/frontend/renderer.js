@@ -16,9 +16,7 @@ slider.addEventListener('change', (e) => {
 	const targetTDP = Number(e.target.value) * 1000;
 	const boostTDP = targetTDP + (BOOST_TDP*1000);
 
-    const path = window.localStorage.getItem(RYZENADJ_PATH)
-
-    window.ipcRender.send('updateTdp', [path, `${targetTDP}`, `${boostTDP}`])
+    window.ipcRender.send('updateTdp', [`${targetTDP}`, `${boostTDP}`])
 })
 
 ryzenAdjPathInput.addEventListener('change', (e) => {

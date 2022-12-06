@@ -64,23 +64,31 @@ app.on('window-all-closed', () => {
     }
 });
 
-function ryzenadj(path, args) {
-    console.log(path, args)
+function ryzenadj(args) {
+    const path = getItem(RYZENADJ_PATH) || "";
     let script = childProcess.spawn('sudo', [path, ...args]);
 
     return script
+}
+
+function sendTdpData() {
+    let tdpDataScript = ryzenadj(['-i']);
+
+    tdpDataScript.stdout.on('data', data => {
+        const parsedData = Buffer.from(data).toString()
+        console.log(parsedData)
+        window.webContents.send('tdpInfo', parsedData)
+    })
 }
 
 ipcMain.addListener('setRyzenadjPath', (e, path) => {
     setItem(RYZENADJ_PATH, path)
 })
 
-ipcMain.addListener('updateTdp', (e, [_ryzenadjPath, tdp, boostTdp]) => {
+ipcMain.addListener('updateTdp', (e, [tdp, boostTdp]) => {
     const tdpArgs = ['-a', tdp, '-b', boostTdp, '-c', tdp]
 
-    const ryzenadjPath = getItem(RYZENADJ_PATH)
-
-    let script = ryzenadj(ryzenadjPath, tdpArgs)
+    let script = ryzenadj(tdpArgs)
 
     // console.log('PID: ' + script.pid);
 
@@ -88,13 +96,7 @@ ipcMain.addListener('updateTdp', (e, [_ryzenadjPath, tdp, boostTdp]) => {
         console.log('stdout: ' + data);
 
         // success, fetch TDP data + send back to renderer
-        let tdpDataScript = ryzenadj(ryzenadjPath, ['-i']);
-
-        tdpDataScript.stdout.on('data', data => {
-            const parsedData = Buffer.from(data).toString()
-            console.log(parsedData)
-            window.webContents.send('tdpInfo', parsedData)
-        })
+        sendTdpData()
     });
 
     script.stderr.on('data', (err) => {
