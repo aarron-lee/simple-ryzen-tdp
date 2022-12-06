@@ -7,8 +7,8 @@ let window;
 
 function createWindow() {
     window = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 1280,
+        height: 720,
         show: false,
         webPreferences: {
             nodeIntegration: false,
@@ -41,7 +41,7 @@ app.on('window-all-closed', () => {
 
 ipcMain.on('updateTdp', (e, [tdp, boostTdp]) => {
     console.log(tdp, boostTdp)
-    let script = childProcess.spawn('bash', ['test.sh', tdp, boostTdp]);
+    let script = childProcess.spawn('bash', ['updateTdp.sh', tdp, boostTdp]);
 
     // console.log('PID: ' + script.pid);
 
