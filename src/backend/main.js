@@ -42,6 +42,7 @@ function createWindow() {
 
     window.loadFile('index.html')
         .then(() => { window.show(); })
+        .then(sendTdpData)
 
     createTray()
 
