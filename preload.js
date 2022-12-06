@@ -7,7 +7,7 @@ const ipc = {
     'render': {
         // From render to main.
         'send': [
-            'runScript' // Channel name
+            'updateTdp' // Channel name
         ],
         // From main to render.
         'receive': [],

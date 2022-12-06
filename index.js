@@ -39,9 +39,9 @@ app.on('window-all-closed', () => {
     }
 });
 
-ipcMain.on('runScript', (e, ...args) => {
-    console.log(args)
-    let script = childProcess.spawn('bash', ['test.sh', ...args]);
+ipcMain.on('updateTdp', (e, [tdp, boostTdp]) => {
+    console.log(tdp, boostTdp)
+    let script = childProcess.spawn('bash', ['test.sh', tdp, boostTdp]);
 
     // console.log('PID: ' + script.pid);
 
