@@ -39,14 +39,29 @@ app.on('window-all-closed', () => {
     }
 });
 
-ipcMain.on('updateTdp', (e, [ryzenadjPath, tdp, boostTdp]) => {
+function ryzenadj(path, args) {
     console.log(ryzenadjPath, tdp, boostTdp)
-    let script = childProcess.spawn('sudo', [ryzenadjPath, '-a', tdp, '-b', boostTdp, '-c', tdp]);
+    let script = childProcess.spawn('sudo', [path, ...args]);
+
+    return script
+}
+
+ipcMain.on('updateTdp', (e, [ryzenadjPath, tdp, boostTdp]) => {
+    const tdpArgs = ['-a', tdp, '-b', boostTdp, '-c', tdp]
+
+    let script = ryzenadj(ryzenadjPath, tdpArgs)
 
     // console.log('PID: ' + script.pid);
 
     script.stdout.on('data', (data) => {
         console.log('stdout: ' + data);
+
+        // success, fetch TDP data + send back to renderer
+        let tdpDataScript = ryzenadj(ryzenadjPath, ['-i']);
+
+        tdpDataScript.stdout.on('data', data => {
+            window.webContents.send('tdpInfo', data)
+        })
     });
 
     script.stderr.on('data', (err) => {
