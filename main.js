@@ -18,7 +18,7 @@ function createWindow() {
     });
 
     window.loadFile('index.html')
-        .then(() => { window.show(); });
+        .then(() => { window.show(); })
 
     return window;
 }
@@ -40,7 +40,7 @@ app.on('window-all-closed', () => {
 });
 
 function ryzenadj(path, args) {
-    console.log(ryzenadjPath, tdp, boostTdp)
+    console.log(path, args)
     let script = childProcess.spawn('sudo', [path, ...args]);
 
     return script
@@ -60,7 +60,9 @@ ipcMain.on('updateTdp', (e, [ryzenadjPath, tdp, boostTdp]) => {
         let tdpDataScript = ryzenadj(ryzenadjPath, ['-i']);
 
         tdpDataScript.stdout.on('data', data => {
-            window.webContents.send('tdpInfo', data)
+            const parsedData = Buffer.from(data).toString()
+            console.log(parsedData)
+            window.webContents.send('tdpInfo', parsedData)
         })
     });
 
