@@ -6,17 +6,19 @@ This is a very simple Linux TDP app that wraps ryzenadj
 
 # Configure and usage
 
-compile AppImage via `npm run package`, which will create the appimage file in the `dist` directory.
+Download AppImage from releases, or compile AppImage via `npm run package`, which will create the appimage file in the `dist` directory.
 
-compile a ryzenadj binary, see [ryzenadj readme](https://github.com/FlyGoat/RyzenAdj#installation)
+- note, AppImage will require installing fuse2 on linux distros that only have fuse3
 
-in terminal/console, run the `configure.sh` for to enable sudo-less access to the ryzenadj binary
+compile a ryzenadj binary, see [ryzenadj readme](https://github.com/FlyGoat/RyzenAdj#installation). You could also try downloading a ryzenadj binary (e.g. [here](https://github.com/ShadowBlip/HandyPT/blob/af496071600d44f24bf36cdc087c18fc1b1865da/bin/ryzenadj)), but I take no responsibility for whether it works or not.
+
+in terminal/console, download + run the `configure.sh` script for to enable password-less sudo access to the ryzenadj binary
 
 e.g.
 ```bash
-./configure.sh path_to_ryzenadj_binary
+sudo ./configure.sh path_to_ryzenadj_binary
 # e.g.
-./configure.sh /home/username/applications
+sudo ./configure.sh /home/username/applications
 ```
 
 then run the simple ryzen tdp appimage, and add the full filepath to ryzenadj binary in the appropriate text input.
