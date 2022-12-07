@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 const { app, BrowserWindow, Tray, Menu, ipcMain } = require("electron");
 const path = require("path");
 const childProcess = require("child_process");
@@ -5,6 +6,7 @@ const { initializeSettings } = require("./settings");
 
 const RYZENADJ_PATH = "ryzenadjPath";
 const IS_WINDOW_HIDDEN = "isWindowHidden";
+const DEFAULT_TDP = "defaultTdp";
 
 const { setItem, getItem } = initializeSettings(app);
 
@@ -135,7 +137,14 @@ function createWindow() {
 
   window.setMenuBarVisibility(false);
 
-  window.loadFile("index.html").then(sendTdpData);
+  window.loadFile("index.html").then(() => {
+    const defaultTdp = getItem(DEFAULT_TDP);
+    if (defaultTdp) {
+      setTdp(defaultTdp);
+    } else {
+      sendTdpData();
+    }
+  });
 
   createTray();
 
@@ -164,4 +173,8 @@ ipcMain.addListener("setRyzenadjPath", (_, ryzenadjPath) => {
 
 ipcMain.addListener("updateTdp", (e, tdp) => {
   setTdp(tdp);
+});
+
+ipcMain.addListener("setDefaultTdp", (e, tdp) => {
+  setItem(DEFAULT_TDP, tdp);
 });

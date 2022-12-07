@@ -31,10 +31,8 @@
     }
   },
   "author": "Aarron Lee",
-  "dependencies": {
-    "electron": "^21.3.0"
-  },
   "devDependencies": {
+    "electron": "^21.3.0",
     "electron-builder": "^23.6.0",
     "eslint": "^8.29.0",
     "eslint-config-airbnb-base": "^15.0.0",

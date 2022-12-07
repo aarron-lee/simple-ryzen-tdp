@@ -10,6 +10,10 @@ document.addEventListener("DOMContentLoaded", () => {
   if (window.localStorage.getItem(RYZENADJ_PATH)) {
     ryzenAdjPathInput.value = window.localStorage.getItem(RYZENADJ_PATH);
   }
+  if (window.localStorage.getItem(DEFAULT_TDP)) {
+    document.getElementById("defaultTdp").value =
+      window.localStorage.getItem(DEFAULT_TDP);
+  }
 });
 
 defaultTdpForm.addEventListener("submit", (e) => {

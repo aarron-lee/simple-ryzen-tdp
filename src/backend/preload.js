@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 // Import the necessary Electron components.
 const { contextBridge } = require("electron");
 const { ipcRenderer } = require("electron");
