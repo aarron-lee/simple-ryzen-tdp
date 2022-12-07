@@ -77,6 +77,11 @@ function setTdp(tdp) {
 
     // success, fetch TDP data + send back to renderer
     sendTdpData();
+
+    // upate context menu
+    // eslint-disable-next-line no-use-before-define
+    const contextMenu = createContextMenu(tdp);
+    tray.setContextMenu(contextMenu);
   });
 
   script.stderr.on("data", (err) => {
@@ -87,16 +92,8 @@ function setTdp(tdp) {
     console.log(`Exit Code: ${code}`);
   });
 }
-function createTray(currentTdp) {
-  tray = new Tray(
-    path.join(__dirname, "../assets/tray_icons/favicon-32x32.png")
-  );
 
-  const click = (e) => {
-    const tdp = e.value;
-    setTdp(tdp);
-  };
-
+function createContextMenu(currentTdp) {
   const toggleWindow = () => {
     const windowIsVisible = window.isVisible();
     if (windowIsVisible) {
@@ -113,7 +110,10 @@ function createTray(currentTdp) {
     type: "radio",
     value: v,
     checked: currentTdp === v,
-    click,
+    click: (e) => {
+      const tdp = e.value;
+      setTdp(tdp);
+    },
   }));
 
   const contextMenu = Menu.buildFromTemplate([
@@ -121,6 +121,16 @@ function createTray(currentTdp) {
     ...tdpOptions,
     { label: "Quit", click: () => app.quit() },
   ]);
+
+  return contextMenu;
+}
+
+function createTray(currentTdp) {
+  tray = new Tray(
+    path.join(__dirname, "../assets/tray_icons/favicon-32x32.png")
+  );
+
+  const contextMenu = createContextMenu(currentTdp);
 
   tray.setToolTip("Simple Ryzen TDP");
   tray.setContextMenu(contextMenu);
