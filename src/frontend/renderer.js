@@ -7,19 +7,33 @@ const tdpRangeForm = document.getElementById("tdpRange");
 const SETTINGS = "settings";
 const RYZENADJ_PATH = "ryzenadjPath";
 const DEFAULT_TDP = "defaultTdp";
+const TDP_RANGE = "tdpRange";
 
 function getSettings() {
   return JSON.parse(window.localStorage.getItem(SETTINGS));
 }
 
+function updateNodesWithTdpRange(min, max) {
+  slider.min = min;
+  slider.max = max;
+
+  const tdpOnAppStart = document.getElementById("defaultTdp");
+  tdpOnAppStart.min = min;
+  tdpOnAppStart.max = max;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const ryzenadjPath = getSettings()[RYZENADJ_PATH];
   const defaultTdp = getSettings()[DEFAULT_TDP];
+  const tdpRange = getSettings()[TDP_RANGE];
   if (ryzenadjPath) {
     ryzenAdjPathInput.value = ryzenadjPath;
   }
   if (defaultTdp) {
     document.getElementById("defaultTdp").value = defaultTdp;
+  }
+  if (tdpRange) {
+    updateNodesWithTdpRange(...tdpRange);
   }
 });
 
@@ -43,6 +57,8 @@ tdpRangeForm.addEventListener("submit", (e) => {
   const tdpRange = [Number(min[1]), Number(max[1])];
 
   window.ipcRender.send("updateTdpRange", tdpRange);
+
+  updateNodesWithTdpRange(...tdpRange);
 });
 
 clearDefaultTdpButton.addEventListener("click", (e) => {

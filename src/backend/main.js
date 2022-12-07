@@ -70,10 +70,10 @@ function setTdp(tdp) {
 
   const script = ryzenadj(tdpArgs);
 
-  console.log(`PID: ${script.pid}`);
+  // console.log(`PID: ${script.pid}`);
 
   script.stdout.on("data", (data) => {
-    console.log(`stdout: ${data}`);
+    console.log(`success stdout: ${data}`);
 
     // success, fetch TDP data + send back to renderer
     sendTdpData();
@@ -109,7 +109,7 @@ function createContextMenu(currentTdp) {
 
   const [min, max] = settings.tdpRange;
 
-  const tdpOptions = _.range(min, max).map((v) => ({
+  const tdpOptions = _.range(min, max + 1).map((v) => ({
     label: `${v}W TDP`,
     type: "radio",
     value: v,
@@ -193,6 +193,8 @@ ipcMain.addListener("updateTdpRange", (e, tdpRange) => {
       setTdp(min);
     } else if (currentTdp > max) {
       setTdp(max);
+    } else {
+      setTdp(currentTdp);
     }
   });
 });
