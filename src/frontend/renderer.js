@@ -54,6 +54,19 @@ ryzenAdjPathInput.addEventListener("change", (e) => {
   window.ipcRender.send("setRyzenadjPath", path);
 });
 
-window.ipcRender.receive("tdpInfo", (...args) => {
-  document.getElementById("tdpDetails").innerHTML = args;
+window.ipcRender.receive("tdpInfo", (data) => {
+  document.getElementById("tdpDetails").innerHTML = data;
+
+  const tdpInfo = data.split("|").map((v) => v.trim());
+  let currentTdp;
+  // eslint-disable-next-line no-restricted-syntax
+  for (const [i, v] of tdpInfo.entries()) {
+    if (v === "STAPM LIMIT") {
+      currentTdp = Number(tdpInfo[i + 1]);
+      break;
+    }
+  }
+  if (slider.value !== `${currentTdp}`) {
+    slider.value = `${currentTdp}`;
+  }
 });

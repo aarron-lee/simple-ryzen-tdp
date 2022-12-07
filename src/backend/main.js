@@ -19,16 +19,22 @@ function ryzenadj(args) {
 
   return script;
 }
-function sendTdpData() {
+
+function getAllTdpInfo(callback) {
   if (getItem(RYZENADJ_PATH)) {
     const tdpDataScript = ryzenadj(["-i"]);
 
     tdpDataScript.stdout.on("data", (data) => {
       const parsedData = Buffer.from(data).toString();
-      console.log(parsedData);
-      window.webContents.send("tdpInfo", parsedData);
+      callback(parsedData);
     });
   }
+}
+
+function sendTdpData() {
+  getAllTdpInfo((parsedData) => {
+    window.webContents.send("tdpInfo", parsedData);
+  });
 }
 
 function setTdp(tdp) {
