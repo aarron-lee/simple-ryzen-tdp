@@ -186,9 +186,20 @@ app.on("window-all-closed", () => {
 });
 
 ipcMain.addListener("updateTdpRange", (e, tdpRange) => {
+  const [min, max] = tdpRange;
+
   setItem("tdpRange", tdpRange);
+
+  const { defaultTdp } = getSettings();
+  if (defaultTdp) {
+    if (defaultTdp > max) {
+      setItem(DEFAULT_TDP, max);
+    } else if (defaultTdp < min) {
+      setItem(DEFAULT_TDP, min);
+    }
+  }
+
   getCurrentTdp((currentTdp) => {
-    const [min, max] = tdpRange;
     if (currentTdp < min) {
       setTdp(min);
     } else if (currentTdp > max) {
