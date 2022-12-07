@@ -6,7 +6,7 @@
     <title>Simple Ryzen TDP</title>
     <style>
       body {
-        display:flex;
+        display: flex;
         flex-direction: row;
       }
       body > div {
@@ -19,20 +19,45 @@
     <div>
       <label class="form-label" for="customTDP">TDP</label>
       <div class="range">
-        <input type="range" style="width:640px" id="customTDP" min="4" max="18" step="1"/>
+        <input
+          type="range"
+          style="width: 640px"
+          id="customTDP"
+          min="4"
+          max="18"
+          step="1"
+        />
       </div>
       <div id="tdpView"></div>
-      <br/>
+      <br />
       <label class="form-label" for="ryzenadjPath">ryzenadj path</label>
       <div>
-        <input type="text" id="ryzenadjPath" style="width:640px" placeholder="input path to ryzenAdj binary"/>
+        <input
+          type="text"
+          id="ryzenadjPath"
+          style="width: 640px"
+          placeholder="input path to ryzenAdj binary"
+        />
       </div>
+      <br />
+      <label class="form-label" for="defaultTdp">Default TDP</label>
+      <form id="defaultTdpForm">
+        <input
+          type="number"
+          id="defaultTdp"
+          name="defaultTdp"
+          min="4"
+          max="22"
+          step="1"
+        />
+        <button type="submit" id="saveDefaultTdp">Save</button>
+        <button type="button" id="clearDefaultTdp">Clear</button>
+      </form>
     </div>
     <div>
       <pre id="tdpDetails"></pre>
     </div>
   </body>
-
 
   <script src="src/frontend/renderer.js"></script>
 </html>

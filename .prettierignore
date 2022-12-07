@@ -1,0 +1,5 @@
+# ignore artifacts
+build
+dist
+coverage
+npm_modules

@@ -1,43 +1,41 @@
 const path = require("path");
-const fs = require('fs')
+const fs = require("fs");
 
 function initializeSettings(app) {
-    const CONFIG_PATH = app.getPath("appData")
-    const SETTINGS_PATH = path.join(CONFIG_PATH, 'ryzen-tdp-settings.json')
+  const CONFIG_PATH = app.getPath("appData");
+  const SETTINGS_PATH = path.join(CONFIG_PATH, "ryzen-tdp-settings.json");
 
-    let settings = {};
+  let settings = {};
 
-    console.log(SETTINGS_PATH)
+  console.log(SETTINGS_PATH);
 
-    const saveSettings = () => {
-        fs.writeFileSync(SETTINGS_PATH, JSON.stringify(settings, null, 2))
+  const saveSettings = () => {
+    fs.writeFileSync(SETTINGS_PATH, JSON.stringify(settings, null, 2));
+  };
+
+  try {
+    if (fs.existsSync(SETTINGS_PATH)) {
+      const rawData = fs.readFileSync(SETTINGS_PATH);
+
+      settings = JSON.parse(rawData);
+    } else {
+      // initialize settings file
+      saveSettings();
     }
+  } catch (e) {
+    console.error(e);
+  }
 
-    try {
-        if (fs.existsSync(SETTINGS_PATH)) {
-            let rawData = fs.readFileSync(SETTINGS_PATH)
+  const setItem = (key, value) => {
+    settings[key] = value;
+    saveSettings();
+  };
 
-            settings = JSON.parse(rawData)
-        } else {
-            // initialize settings file
-            saveSettings()
-        }
-    } catch(e) {
-        console.error(e)
-    }
+  const getItem = (key) => settings[key];
 
-    const setItem = (key, value) => {
-        settings[key] = value
-        saveSettings()
-    }
-
-    const getItem = (key) => {
-        return settings[key]
-    }
-
-    return { setItem, getItem }
+  return { setItem, getItem };
 }
 
 module.exports = {
-    initializeSettings,
-}
+  initializeSettings,
+};
