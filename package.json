@@ -11,9 +11,7 @@
     "lint:fix": "npm run lint -- --fix",
     "prettier": "npx prettier src --check",
     "prettier:fix": "npm run prettier -- --write",
-    "format": "npm run prettier:fix && npm run lint:fix",
-    "build": "electron-builder -l --publish never",
-    "deploy": "electron-builder build -l --publish always"
+    "format": "npm run prettier:fix && npm run lint:fix"
   },
   "build": {
     "appId": "com.aarronlee.simple-ryzen-tdp",
