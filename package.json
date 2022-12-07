@@ -11,7 +11,9 @@
     "lint:fix": "npm run lint -- --fix",
     "prettier": "npx prettier src --check",
     "prettier:fix": "npm run prettier -- --write",
-    "format": "npm run prettier:fix && npm run lint:fix"
+    "format": "npm run prettier:fix && npm run lint:fix",
+    "build": "electron-builder -l --publish never",
+    "deploy": "electron-builder build -l --publish always"
   },
   "build": {
     "appId": "com.aarronlee.simple-ryzen-tdp",
@@ -39,5 +41,9 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
     "prettier": "2.8.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aarron-lee/simple-ryzen-tdp.git"
   }
 }
