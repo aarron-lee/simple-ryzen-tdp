@@ -49,10 +49,10 @@ function getCurrentTdp(callback) {
     for (const [i, v] of tdpInfo.entries()) {
       if (v === "STAPM LIMIT") {
         currentTdp = Number(tdpInfo[i + 1]);
-        callback(currentTdp);
         break;
       }
     }
+    callback(currentTdp);
   });
 }
 
@@ -81,7 +81,7 @@ function setTdp(tdp) {
     // upate context menu
     // eslint-disable-next-line no-use-before-define
     const contextMenu = createContextMenu(tdp);
-    tray.setContextMenu(contextMenu);
+    tray?.setContextMenu(contextMenu);
   });
 
   script.stderr.on("data", (err) => {
@@ -137,7 +137,7 @@ function createTray(currentTdp) {
   const contextMenu = createContextMenu(currentTdp);
 
   tray.setToolTip("Simple Ryzen TDP");
-  tray.setContextMenu(contextMenu);
+  tray?.setContextMenu(contextMenu);
 }
 
 function createWindow() {
