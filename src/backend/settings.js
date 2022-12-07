@@ -1,13 +1,17 @@
 const path = require("path");
 const fs = require("fs");
 
+const DEFAULT_SETTINGS = {
+  defaultTdp: undefined,
+  isWindowHidden: false,
+  ryzenadjPath: undefined,
+};
+
 function initializeSettings(app) {
   const CONFIG_PATH = app.getPath("appData");
   const SETTINGS_PATH = path.join(CONFIG_PATH, "ryzen-tdp-settings.json");
 
-  let settings = {};
-
-  console.log(SETTINGS_PATH);
+  let settings = DEFAULT_SETTINGS;
 
   const saveSettings = () => {
     fs.writeFileSync(SETTINGS_PATH, JSON.stringify(settings, null, 2));

@@ -3,30 +3,33 @@ const ryzenAdjPathInput = document.getElementById("ryzenadjPath");
 const defaultTdpForm = document.getElementById("defaultTdpForm");
 const clearDefaultTdpButton = document.getElementById("clearDefaultTdp");
 
+const SETTINGS = "settings";
 const RYZENADJ_PATH = "ryzenadjPath";
 const DEFAULT_TDP = "defaultTdp";
 
+function getSettings() {
+  return JSON.parse(window.localStorage.getItem(SETTINGS));
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-  if (window.localStorage.getItem(RYZENADJ_PATH)) {
-    ryzenAdjPathInput.value = window.localStorage.getItem(RYZENADJ_PATH);
+  const ryzenadjPath = getSettings()[RYZENADJ_PATH];
+  const defaultTdp = getSettings()[DEFAULT_TDP];
+  if (ryzenadjPath) {
+    ryzenAdjPathInput.value = ryzenadjPath;
   }
-  if (window.localStorage.getItem(DEFAULT_TDP)) {
-    document.getElementById("defaultTdp").value =
-      window.localStorage.getItem(DEFAULT_TDP);
+  if (defaultTdp) {
+    document.getElementById("defaultTdp").value = defaultTdp;
   }
 });
 
 defaultTdpForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  const [[fieldName, tdp]] = Array.from(new FormData(defaultTdpForm));
-
-  console.log(fieldName, tdp);
+  const [[, tdp]] = Array.from(new FormData(defaultTdpForm));
 
   if (tdp) {
     const defaultTdp = Number(tdp);
 
-    window.localStorage.setItem(DEFAULT_TDP, defaultTdp);
     window.ipcRender.send("setDefaultTdp", defaultTdp);
   }
 });
@@ -35,7 +38,6 @@ clearDefaultTdpButton.addEventListener("click", (e) => {
   e.preventDefault();
   e.stopPropagation();
 
-  window.localStorage.setItem(DEFAULT_TDP, undefined);
   window.ipcRender.send("setDefaultTdp", undefined);
   document.getElementById("defaultTdp").value = undefined;
 });
@@ -50,7 +52,6 @@ slider.addEventListener("change", (e) => {
 ryzenAdjPathInput.addEventListener("change", (e) => {
   const path = e.target.value;
 
-  window.localStorage.setItem(RYZENADJ_PATH, path);
   window.ipcRender.send("setRyzenadjPath", path);
 });
 
@@ -69,4 +70,8 @@ window.ipcRender.receive("tdpInfo", (data) => {
   if (slider.value !== `${currentTdp}`) {
     slider.value = `${currentTdp}`;
   }
+});
+
+window.ipcRender.receive("updateSettings", (settings) => {
+  window.localStorage.setItem("settings", JSON.stringify(settings, null, 2));
 });

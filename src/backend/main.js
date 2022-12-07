@@ -9,10 +9,16 @@ const RYZENADJ_PATH = "ryzenadjPath";
 const IS_WINDOW_HIDDEN = "isWindowHidden";
 const DEFAULT_TDP = "defaultTdp";
 
-const { setItem, getItem } = initializeSettings(app);
+const { setItem: setValue, getItem, getSettings } = initializeSettings(app);
 
 let window;
 let tray;
+
+function setItem(k, v) {
+  setValue(k, v);
+  const settings = getSettings();
+  window.webContents.send("updateSettings", settings);
+}
 
 function ryzenadj(args) {
   const ryzenAdjpath = getItem(RYZENADJ_PATH) || "";
