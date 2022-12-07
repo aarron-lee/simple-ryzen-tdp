@@ -20,6 +20,12 @@ function updateNodesWithTdpRange(min, max) {
   const tdpOnAppStart = document.getElementById("defaultTdp");
   tdpOnAppStart.min = min;
   tdpOnAppStart.max = max;
+
+  const minTdpInput = document.getElementById("minTdp");
+  minTdpInput.value = min;
+
+  const maxTdpInput = document.getElementById("maxTdp");
+  maxTdpInput.value = max;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
