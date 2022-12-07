@@ -5,6 +5,7 @@ const DEFAULT_SETTINGS = {
   defaultTdp: undefined,
   isWindowHidden: false,
   ryzenadjPath: undefined,
+  tdpRange: [5, 18],
 };
 
 function initializeSettings(app) {

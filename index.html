@@ -55,6 +55,29 @@
         <button type="submit" id="saveDefaultTdp">Save</button>
         <button type="button" id="clearDefaultTdp">Clear</button>
       </form>
+      <br />
+      <label class="form-label" for="tdpRange">TDP Range</label>
+      <form id="tdpRange">
+        min:
+        <input
+          type="number"
+          id="minTdp"
+          name="minTdp"
+          min="5"
+          max="100"
+          step="1"
+        />
+        max:
+        <input
+          type="number"
+          id="maxTdp"
+          name="maxTdp"
+          min="5"
+          max="100"
+          step="1"
+        />
+        <button type="submit" id="saveTdpRange">Save</button>
+      </form>
     </div>
     <div>
       <pre id="tdpDetails"></pre>

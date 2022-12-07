@@ -2,6 +2,7 @@ const slider = document.getElementById("customTDP");
 const ryzenAdjPathInput = document.getElementById("ryzenadjPath");
 const defaultTdpForm = document.getElementById("defaultTdpForm");
 const clearDefaultTdpButton = document.getElementById("clearDefaultTdp");
+const tdpRangeForm = document.getElementById("tdpRange");
 
 const SETTINGS = "settings";
 const RYZENADJ_PATH = "ryzenadjPath";
@@ -32,6 +33,16 @@ defaultTdpForm.addEventListener("submit", (e) => {
 
     window.ipcRender.send("setDefaultTdp", defaultTdp);
   }
+});
+
+tdpRangeForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const [min, max] = Array.from(new FormData(tdpRangeForm));
+
+  const tdpRange = [Number(min[1]), Number(max[1])];
+
+  window.ipcRender.send("updateTdpRange", tdpRange);
 });
 
 clearDefaultTdpButton.addEventListener("click", (e) => {

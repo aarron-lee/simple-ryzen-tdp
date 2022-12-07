@@ -105,7 +105,11 @@ function createContextMenu(currentTdp) {
     }
   };
 
-  const tdpOptions = _.range(5, 22).map((v) => ({
+  const settings = getSettings();
+
+  const [min, max] = settings.tdpRange;
+
+  const tdpOptions = _.range(min, max).map((v) => ({
     label: `${v}W TDP`,
     type: "radio",
     value: v,
@@ -179,6 +183,18 @@ app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
   }
+});
+
+ipcMain.addListener("updateTdpRange", (e, tdpRange) => {
+  setItem("tdpRange", tdpRange);
+  getCurrentTdp((currentTdp) => {
+    const [min, max] = tdpRange;
+    if (currentTdp < min) {
+      setTdp(min);
+    } else if (currentTdp > max) {
+      setTdp(max);
+    }
+  });
 });
 
 ipcMain.addListener("setRyzenadjPath", (_, ryzenadjPath) => {
