@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 const { app, BrowserWindow, Tray, Menu, ipcMain } = require("electron");
+const _ = require("lodash");
 const path = require("path");
 const childProcess = require("child_process");
 const { initializeSettings } = require("./settings");
@@ -15,6 +16,9 @@ let tray;
 
 function ryzenadj(args) {
   const ryzenAdjpath = getItem(RYZENADJ_PATH) || "";
+  if (!ryzenAdjpath) {
+    throw Error("ryzenadj path not found");
+  }
   const script = childProcess.spawn("sudo", [ryzenAdjpath, ...args]);
 
   return script;
@@ -29,6 +33,21 @@ function getAllTdpInfo(callback) {
       callback(parsedData);
     });
   }
+}
+
+function getCurrentTdp(callback) {
+  let currentTdp;
+  getAllTdpInfo((data) => {
+    const tdpInfo = data.split("|").map((v) => v.trim());
+    // eslint-disable-next-line no-restricted-syntax
+    for (const [i, v] of tdpInfo.entries()) {
+      if (v === "STAPM LIMIT") {
+        currentTdp = Number(tdpInfo[i + 1]);
+        callback(currentTdp);
+        break;
+      }
+    }
+  });
 }
 
 function sendTdpData() {
@@ -62,7 +81,7 @@ function setTdp(tdp) {
     console.log(`Exit Code: ${code}`);
   });
 }
-function createTray() {
+function createTray(currentTdp) {
   tray = new Tray(
     path.join(__dirname, "../assets/tray_icons/favicon-32x32.png")
   );
@@ -83,44 +102,17 @@ function createTray() {
     }
   };
 
+  const tdpOptions = _.range(5, 22).map((v) => ({
+    label: `${v}W TDP`,
+    type: "radio",
+    value: v,
+    checked: currentTdp === v,
+    click,
+  }));
+
   const contextMenu = Menu.buildFromTemplate([
-    { label: "toggle window", click: toggleWindow },
-    {
-      label: "5W TDP",
-      type: "radio",
-      value: 5,
-      click,
-    },
-    {
-      label: "8W TDP",
-      type: "radio",
-      value: 8,
-      click,
-    },
-    {
-      label: "12W TDP",
-      type: "radio",
-      value: 12,
-      click,
-    },
-    {
-      label: "15W TDP",
-      type: "radio",
-      value: 15,
-      click,
-    },
-    {
-      label: "18W TDP",
-      type: "radio",
-      value: 18,
-      click,
-    },
-    {
-      label: "22W TDP",
-      type: "radio",
-      value: 22,
-      click,
-    },
+    { label: "Toggle Window", click: toggleWindow },
+    ...tdpOptions,
     { label: "Quit", click: () => app.quit() },
   ]);
 
@@ -152,7 +144,7 @@ function createWindow() {
     }
   });
 
-  createTray();
+  getCurrentTdp(createTray);
 
   return window;
 }
