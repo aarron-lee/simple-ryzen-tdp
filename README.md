@@ -12,7 +12,7 @@ Download AppImage from releases, or compile AppImage via `npm run package`, whic
 
 compile a ryzenadj binary, see [ryzenadj readme](https://github.com/FlyGoat/RyzenAdj#installation). You could also try downloading a ryzenadj binary (e.g. [here](https://github.com/ShadowBlip/HandyPT/blob/af496071600d44f24bf36cdc087c18fc1b1865da/bin/ryzenadj)), but I take no responsibility for whether it works or not.
 
-in terminal/console, download + run the `configure.sh` script for to enable password-less sudo access to the ryzenadj binary
+in terminal/console, download + run the [configure.sh](https://github.com/aarron-lee/simple-ryzen-tdp/blob/main/configure.sh) script for to enable password-less sudo access to the ryzenadj binary
 
 e.g.
 ```bash
