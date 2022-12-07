@@ -102,6 +102,7 @@ window.ipcRender.receive("tdpInfo", (data) => {
   }
   if (slider.value !== `${currentTdp}`) {
     slider.value = `${currentTdp}`;
+    document.getElementById("tdpView").innerHTML = `- ${currentTdp}W`;
   }
 });
 
