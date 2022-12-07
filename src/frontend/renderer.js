@@ -41,7 +41,7 @@ clearDefaultTdpButton.addEventListener("click", (e) => {
 });
 
 slider.addEventListener("change", (e) => {
-  document.getElementById("tdpView").innerHTML = e.target.value;
+  document.getElementById("tdpView").innerHTML = `- ${e.target.value}W`;
   const targetTDP = Number(e.target.value);
 
   window.ipcRender.send("updateTdp", targetTDP);

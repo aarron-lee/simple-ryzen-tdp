@@ -33,7 +33,9 @@ function initializeSettings(app) {
 
   const getItem = (key) => settings[key];
 
-  return { setItem, getItem };
+  const getSettings = () => settings;
+
+  return { getSettings, setItem, getItem };
 }
 
 module.exports = {
