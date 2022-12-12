@@ -206,8 +206,6 @@ app.whenReady().then(() => {
 });
 
 app.on("window-all-closed", () => {
-  // reset preserved TDP
-  setItem(PRESERVED_TDP, undefined);
   if (process.platform !== "darwin") {
     app.quit();
   }
