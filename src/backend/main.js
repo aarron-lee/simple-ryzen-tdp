@@ -1,13 +1,17 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-const { app, BrowserWindow, Tray, Menu, ipcMain } = require("electron");
+const electron = require("electron");
 const _ = require("lodash");
 const path = require("path");
 const childProcess = require("child_process");
 const { initializeSettings } = require("./settings");
 
+const { app, BrowserWindow, Tray, Menu, ipcMain } = electron;
+
 const RYZENADJ_PATH = "ryzenadjPath";
 const IS_WINDOW_HIDDEN = "isWindowHidden";
 const DEFAULT_TDP = "defaultTdp";
+const PRESERVE_TDP_ON_SUSPEND = "preserveTdpOnSuspend";
+const PRESERVED_TDP = "preservedTdp";
 
 const { setItem: setValue, getItem, getSettings } = initializeSettings(app);
 
@@ -166,6 +170,28 @@ function createWindow() {
 
   getCurrentTdp(createTray);
 
+  electron.powerMonitor.on("resume", () => {
+    const settings = getSettings();
+
+    if (settings[PRESERVE_TDP_ON_SUSPEND]) {
+      const preservedTdp = getItem(PRESERVED_TDP);
+      if (preservedTdp) {
+        setTdp(preservedTdp);
+        // reset preserved TDP on resume
+        setItem(PRESERVED_TDP, undefined);
+      }
+    }
+  });
+
+  electron.powerMonitor.on("suspend", () => {
+    const settings = getSettings();
+
+    if (settings[PRESERVE_TDP_ON_SUSPEND])
+      getCurrentTdp((currentTdp) => {
+        setItem(PRESERVED_TDP, currentTdp);
+      });
+  });
+
   return window;
 }
 
@@ -180,6 +206,8 @@ app.whenReady().then(() => {
 });
 
 app.on("window-all-closed", () => {
+  // reset preserved TDP
+  setItem(PRESERVED_TDP, undefined);
   if (process.platform !== "darwin") {
     app.quit();
   }
@@ -212,6 +240,12 @@ ipcMain.addListener("updateTdpRange", (e, tdpRange) => {
 
 ipcMain.addListener("setRyzenadjPath", (_, ryzenadjPath) => {
   setItem(RYZENADJ_PATH, ryzenadjPath);
+});
+
+ipcMain.addListener("preserveTdpOnSuspend", () => {
+  const settings = getSettings();
+
+  setItem(PRESERVE_TDP_ON_SUSPEND, !settings[PRESERVE_TDP_ON_SUSPEND]);
 });
 
 ipcMain.addListener("updateTdp", (e, tdp) => {

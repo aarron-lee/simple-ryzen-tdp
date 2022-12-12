@@ -3,11 +3,15 @@ const ryzenAdjPathInput = document.getElementById("ryzenadjPath");
 const defaultTdpForm = document.getElementById("defaultTdpForm");
 const clearDefaultTdpButton = document.getElementById("clearDefaultTdp");
 const tdpRangeForm = document.getElementById("tdpRange");
+const preserveTdpOnSuspendCheckbox = document.getElementById(
+  "preserveTdpOnSuspend"
+);
 
 const SETTINGS = "settings";
 const RYZENADJ_PATH = "ryzenadjPath";
 const DEFAULT_TDP = "defaultTdp";
 const TDP_RANGE = "tdpRange";
+const PRESERVE_TDP_ON_SUSPEND = "preserveTdpOnSuspend";
 
 function getSettings() {
   return JSON.parse(window.localStorage.getItem(SETTINGS));
@@ -29,9 +33,11 @@ function updateNodesWithTdpRange(min, max) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const ryzenadjPath = getSettings()[RYZENADJ_PATH];
-  const defaultTdp = getSettings()[DEFAULT_TDP];
-  const tdpRange = getSettings()[TDP_RANGE];
+  const settings = getSettings();
+  const ryzenadjPath = settings[RYZENADJ_PATH];
+  const defaultTdp = settings[DEFAULT_TDP];
+  const tdpRange = settings[TDP_RANGE];
+  const preserveTdpOnSuspend = settings[PRESERVE_TDP_ON_SUSPEND];
   if (ryzenadjPath) {
     ryzenAdjPathInput.value = ryzenadjPath;
   }
@@ -41,6 +47,13 @@ document.addEventListener("DOMContentLoaded", () => {
   if (tdpRange) {
     updateNodesWithTdpRange(...tdpRange);
   }
+  if (preserveTdpOnSuspend) {
+    preserveTdpOnSuspendCheckbox.checked = true;
+  }
+});
+
+preserveTdpOnSuspendCheckbox.addEventListener("click", (e) => {
+  window.ipcRender.send("preserveTdpOnSuspend", e.target.checked);
 });
 
 defaultTdpForm.addEventListener("submit", (e) => {
