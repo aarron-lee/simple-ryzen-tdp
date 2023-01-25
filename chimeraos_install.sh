@@ -13,9 +13,9 @@ fi
 
 # Verify not root user.
 if [ "$EUID" -ne 0 ]; then
-	mkdir -p /home/gamer/Applications
+	mkdir -p $HOME/Applications
 
-	cd /home/gamer/Applications
+	cd $HOME/Applications
 
 	curl -L https://github.com/TheAssassin/AppImageLauncher/releases/download/v2.2.0/appimagelauncher-lite-2.2.0-travis995-0f91801-x86_64.AppImage > ./appimagelauncher-lite-2.2.0-travis995-0f91801-x86_64.AppImage
 
@@ -27,7 +27,7 @@ if [ "$EUID" -ne 0 ]; then
 
 	chmod +x SimpleRyzenTDP-1.0.1.AppImage
 
-	cd /home/gamer/.config
+	cd $HOME/.config
 
 	echo "{ \"ryzenadjPath\": \"/usr/bin/ryzenadj\" }" > ryzen-tdp-settings.json
 
