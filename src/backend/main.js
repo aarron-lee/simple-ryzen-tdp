@@ -45,24 +45,33 @@ function getAllTdpInfo(callback) {
   }
 }
 
-function getCurrentTdp(callback) {
+function extractCurrentTdp(data) {
   let currentTdp;
-  getAllTdpInfo((data) => {
-    const tdpInfo = data.split("|").map((v) => v.trim());
-    // eslint-disable-next-line no-restricted-syntax
-    for (const [i, v] of tdpInfo.entries()) {
-      if (v === "STAPM LIMIT") {
-        currentTdp = Number(tdpInfo[i + 1]);
-        break;
-      }
+  const tdpInfo = data.split("|").map((v) => v.trim());
+  // eslint-disable-next-line no-restricted-syntax
+  for (const [i, v] of tdpInfo.entries()) {
+    if (v === "STAPM LIMIT") {
+      currentTdp = Number(tdpInfo[i + 1]);
+      break;
     }
-    callback(currentTdp);
+  }
+
+  return currentTdp;
+}
+
+function getCurrentTdp(callback) {
+  getAllTdpInfo((data) => {
+    callback(extractCurrentTdp(data));
   });
 }
 
 function sendTdpData() {
   getAllTdpInfo((parsedData) => {
-    window.webContents.send("tdpInfo", parsedData);
+    window.webContents.send(
+      "tdpInfo",
+      parsedData,
+      extractCurrentTdp(parsedData)
+    );
   });
 }
 
