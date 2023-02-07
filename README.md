@@ -25,6 +25,36 @@ then run the simple ryzen tdp appimage, and add the full filepath to ryzenadj bi
 
 The TDP slider should work after all configuration is complete
 
+There is also a generic install script, usage as follows:
+
+```bash
+# must be run twice, once with sudo, once without sudo
+
+chmod +x install.sh
+
+sudo ./install.sh /path/to/ryzenadj/file
+./install.sh /path/to/ryzenadj/file
+```
+
+
+# ChimeraOS install script
+
+There is an install script for ChimeraOS 38 or higher, found [here](https://github.com/aarron-lee/simple-ryzen-tdp/blob/main/chimeraos_install.sh)
+
+make it executable with either `chmod +x` or in the script file's properties.
+
+then run it twice, once with sudo, once without sudo.
+
+e.g.
+
+```bash
+# in terminal/console
+
+chmod +x /home/gamer/Downloads/chimeraos_install.sh
+sudo /home/gamer/Downloads/chimeraos_install.sh 
+/home/gamer/Downloads/chimeraos_install.sh 
+``` 
+
 # Disclaimer
 
 This software is provided "as is", I built this app solely for personal use only. In no event shall I be liable for any direct, indirect, incidental, special, or consequential damages. I have no intention of supporting this app beyond maintenance fixes, although PRs are welcome
