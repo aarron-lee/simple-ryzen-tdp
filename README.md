@@ -25,7 +25,11 @@ then run the simple ryzen tdp appimage, and add the full filepath to ryzenadj bi
 
 The TDP slider should work after all configuration is complete
 
-There is also a generic install script, usage as follows:
+---
+
+There is also a generic install script, which installs appimagelauncher-lite and the tdp app
+
+usage as follows:
 
 ```bash
 # must be run twice, once with sudo, once without sudo
@@ -41,9 +45,9 @@ sudo ./install.sh /path/to/ryzenadj/file
 
 There is an install script for ChimeraOS 38 or higher, found [here](https://github.com/aarron-lee/simple-ryzen-tdp/blob/main/chimeraos_install.sh)
 
-make it executable with either `chmod +x` or in the script file's properties.
+make it executable with either `chmod +x` or in the script file's properties. Then run it twice, once with sudo, once without sudo.
 
-then run it twice, once with sudo, once without sudo.
+You still need to add it manually to Steam as a non-steam game.
 
 e.g.
 
