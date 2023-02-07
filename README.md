@@ -45,7 +45,7 @@ sudo ./install.sh /path/to/ryzenadj/file
 
 There is an install script for ChimeraOS 38 or higher, found [here](https://github.com/aarron-lee/simple-ryzen-tdp/blob/main/chimeraos_install.sh)
 
-make it executable with either `chmod +x` or in the script file's properties. Then run it twice, once with sudo, once without sudo.
+make it executable with either `chmod +x` or in the script file's properties. Then run it twice, once with sudo, once without sudo. default sudo pass is `gamer`
 
 You still need to add it manually to Steam as a non-steam game.
 
