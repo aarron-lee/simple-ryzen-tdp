@@ -142,6 +142,30 @@ function createContextMenu(currentTdp) {
   return contextMenu;
 }
 
+function setupPowerMonitor() {
+  electron.powerMonitor.on("resume", () => {
+    const settings = getSettings();
+
+    if (settings[PRESERVE_TDP_ON_SUSPEND]) {
+      const preservedTdp = getItem(PRESERVED_TDP);
+      if (preservedTdp) {
+        setTdp(preservedTdp);
+        // reset preserved TDP on resume
+        setItem(PRESERVED_TDP, undefined);
+      }
+    }
+  });
+
+  electron.powerMonitor.on("suspend", () => {
+    const settings = getSettings();
+
+    if (settings[PRESERVE_TDP_ON_SUSPEND])
+      getCurrentTdp((currentTdp) => {
+        setItem(PRESERVED_TDP, currentTdp);
+      });
+  });
+}
+
 function createTray(currentTdp) {
   tray = new Tray(
     path.join(__dirname, "../assets/tray_icons/favicon-32x32.png")
@@ -149,7 +173,7 @@ function createTray(currentTdp) {
 
   const contextMenu = createContextMenu(currentTdp);
 
-  tray.setToolTip("Simple Ryzen TDP");
+  tray?.setToolTip("Simple Ryzen TDP");
   tray?.setContextMenu(contextMenu);
 }
 
@@ -178,28 +202,7 @@ function createWindow() {
   });
 
   getCurrentTdp(createTray);
-
-  electron.powerMonitor.on("resume", () => {
-    const settings = getSettings();
-
-    if (settings[PRESERVE_TDP_ON_SUSPEND]) {
-      const preservedTdp = getItem(PRESERVED_TDP);
-      if (preservedTdp) {
-        setTdp(preservedTdp);
-        // reset preserved TDP on resume
-        setItem(PRESERVED_TDP, undefined);
-      }
-    }
-  });
-
-  electron.powerMonitor.on("suspend", () => {
-    const settings = getSettings();
-
-    if (settings[PRESERVE_TDP_ON_SUSPEND])
-      getCurrentTdp((currentTdp) => {
-        setItem(PRESERVED_TDP, currentTdp);
-      });
-  });
+  setupPowerMonitor();
 
   return window;
 }
