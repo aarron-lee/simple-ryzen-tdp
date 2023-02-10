@@ -14,6 +14,8 @@ This is a very simple Linux TDP app that wraps ryzenadj
 
 There is a generic install script, which installs [appimagelauncher-lite](https://github.com/TheAssassin/AppImageLauncher) and the tdp app
 
+The script assumes you already have ryzenadj installed. If not, you will need to compile a ryzenadj binary, see [ryzenadj readme](https://github.com/FlyGoat/RyzenAdj#installation). You could also try downloading a ryzenadj binary (e.g. [here](https://github.com/ShadowBlip/HandyPT/blob/af496071600d44f24bf36cdc087c18fc1b1865da/bin/ryzenadj)), but I take no responsibility for whether it works or not.
+
 usage as follows:
 
 ```bash
