@@ -10,31 +10,9 @@ This is a very simple Linux TDP app that wraps ryzenadj
 
 ![screenshot](https://user-images.githubusercontent.com/9145965/218102072-657bca4f-cf9d-456c-a804-34523548de43.png)
 
-# Configure and usage
+# Installation
 
-Download AppImage from releases, or compile AppImage via `npm run package`, which will create the appimage file in the `dist` directory.
-
-- note, AppImage will require installing fuse2 on linux distros that only have fuse3
-
-compile a ryzenadj binary, see [ryzenadj readme](https://github.com/FlyGoat/RyzenAdj#installation). You could also try downloading a ryzenadj binary (e.g. [here](https://github.com/ShadowBlip/HandyPT/blob/af496071600d44f24bf36cdc087c18fc1b1865da/bin/ryzenadj)), but I take no responsibility for whether it works or not.
-
-in terminal/console, download + run the [configure.sh](https://github.com/aarron-lee/simple-ryzen-tdp/blob/main/configure.sh) script for to enable password-less sudo access to the ryzenadj binary
-
-e.g.
-
-```bash
-sudo ./configure.sh path_to_ryzenadj_binary
-# e.g.
-sudo ./configure.sh /home/username/applications
-```
-
-then run the simple ryzen tdp appimage, and add the full filepath to ryzenadj binary in the appropriate text input.
-
-The TDP slider should work after all configuration is complete
-
----
-
-There is also a generic install script, which installs appimagelauncher-lite and the tdp app
+There is a generic install script, which installs [appimagelauncher-lite](https://github.com/TheAssassin/AppImageLauncher) and the tdp app
 
 usage as follows:
 
@@ -68,6 +46,28 @@ chmod +x /home/gamer/Downloads/chimeraos_install.sh
 sudo /home/gamer/Downloads/chimeraos_install.sh
 /home/gamer/Downloads/chimeraos_install.sh
 ```
+
+# Manual Build
+
+Compile AppImage via `npm run package`, which will create the appimage file in the `dist` directory.
+
+- note, AppImage will require installing fuse2 on linux distros that only have fuse3
+
+compile a ryzenadj binary, see [ryzenadj readme](https://github.com/FlyGoat/RyzenAdj#installation). You could also try downloading a ryzenadj binary (e.g. [here](https://github.com/ShadowBlip/HandyPT/blob/af496071600d44f24bf36cdc087c18fc1b1865da/bin/ryzenadj)), but I take no responsibility for whether it works or not.
+
+in terminal/console, download + run the [configure.sh](https://github.com/aarron-lee/simple-ryzen-tdp/blob/main/configure.sh) script for to enable password-less sudo access to the ryzenadj binary
+
+e.g.
+
+```bash
+sudo ./configure.sh path_to_ryzenadj_binary
+# e.g.
+sudo ./configure.sh /home/username/applications
+```
+
+then run the simple ryzen tdp appimage, and add the full filepath to ryzenadj binary in the appropriate text input.
+
+The TDP slider should work after all configuration is complete
 
 # Disclaimer
 
