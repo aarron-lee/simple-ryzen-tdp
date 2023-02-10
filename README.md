@@ -2,7 +2,7 @@
 
 This is a very simple Linux TDP app that wraps ryzenadj
 
-![screenshot](./simple-ryzen-tdp.png)
+![screenshot](https://user-images.githubusercontent.com/9145965/207160968-9ac6d4b8-cb00-4d81-9223-a712650e49cb.png)
 
 # Configure and usage
 
@@ -15,6 +15,7 @@ compile a ryzenadj binary, see [ryzenadj readme](https://github.com/FlyGoat/Ryze
 in terminal/console, download + run the [configure.sh](https://github.com/aarron-lee/simple-ryzen-tdp/blob/main/configure.sh) script for to enable password-less sudo access to the ryzenadj binary
 
 e.g.
+
 ```bash
 sudo ./configure.sh path_to_ryzenadj_binary
 # e.g.
@@ -35,11 +36,14 @@ usage as follows:
 # must be run twice, once with sudo, once without sudo
 
 chmod +x install.sh
-
 sudo ./install.sh /path/to/ryzenadj/file
 ./install.sh /path/to/ryzenadj/file
-```
 
+# example where ryzenadj is located at /usr/bin/ryzenadj
+chmod +x install.sh
+sudo ./install.sh /usr/bin/ryzenadj
+./install.sh /usr/bin/ryzenadj
+```
 
 # ChimeraOS install script
 
@@ -55,9 +59,9 @@ e.g.
 # in terminal/console
 
 chmod +x /home/gamer/Downloads/chimeraos_install.sh
-sudo /home/gamer/Downloads/chimeraos_install.sh 
-/home/gamer/Downloads/chimeraos_install.sh 
-``` 
+sudo /home/gamer/Downloads/chimeraos_install.sh
+/home/gamer/Downloads/chimeraos_install.sh
+```
 
 # Disclaimer
 
