@@ -2,6 +2,8 @@
 # script needs to be run twice, once with sudo, another without sudo
 
 FILE=/usr/bin/ryzenadj
+APP_VERSION=v1.0.2
+APPIMAGE_NAME=SimpleRyzenTDP-1.0.2.AppImage
 
 if test -f "$FILE"; then
     echo "$FILE exists."
@@ -23,9 +25,9 @@ if [ "$EUID" -ne 0 ]; then
 
 	./appimagelauncher-lite-2.2.0-travis995-0f91801-x86_64.AppImage install
 
-	curl -L https://github.com/aarron-lee/simple-ryzen-tdp/releases/download/v1.0.1/SimpleRyzenTDP-1.0.1.AppImage > ./SimpleRyzenTDP-1.0.1.AppImage
+	curl -L https://github.com/aarron-lee/simple-ryzen-tdp/releases/download/$APP_VERSION/$APPIMAGE_NAME > ./$APPIMAGE_NAME
 
-	chmod +x SimpleRyzenTDP-1.0.1.AppImage
+	chmod +x $APPIMAGE_NAME
 
 	cd $HOME/.config
 
