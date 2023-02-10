@@ -16,6 +16,8 @@ There is a generic install script, found [here](https://github.com/aarron-lee/si
 
 The script assumes you already have ryzenadj installed. If not, you will need to compile a ryzenadj binary, see [ryzenadj readme](https://github.com/FlyGoat/RyzenAdj#installation). You could also try downloading a ryzenadj binary (e.g. [here](https://github.com/ShadowBlip/HandyPT/blob/af496071600d44f24bf36cdc087c18fc1b1865da/bin/ryzenadj)), but I take no responsibility for whether it works or not.
 
+Note, for 6800u chipsets, you may need to add `iomem=relaxed` as a boot parameter for ryzenadj to work, see github issue [here](https://github.com/FlyGoat/RyzenAdj/issues/210) for discussion.
+
 usage as follows:
 
 ```bash
@@ -56,6 +58,8 @@ Compile AppImage via `npm run package`, which will create the appimage file in t
 - note, AppImage will require installing fuse2 on linux distros that only have fuse3
 
 compile a ryzenadj binary, see [ryzenadj readme](https://github.com/FlyGoat/RyzenAdj#installation). You could also try downloading a ryzenadj binary (e.g. [here](https://github.com/ShadowBlip/HandyPT/blob/af496071600d44f24bf36cdc087c18fc1b1865da/bin/ryzenadj)), but I take no responsibility for whether it works or not.
+
+Note, for 6800u chipsets, you may need to add `iomem=relaxed` as a boot parameter for ryzenadj to work, see github issue [here](https://github.com/FlyGoat/RyzenAdj/issues/210) for discussion.
 
 in terminal/console, download + run the [configure.sh](https://github.com/aarron-lee/simple-ryzen-tdp/blob/main/configure.sh) script for to enable password-less sudo access to the ryzenadj binary
 
