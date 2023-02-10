@@ -47,7 +47,7 @@ function getAllTdpInfo(callback) {
 
 function extractCurrentTdp(data) {
   let currentTdp;
-  const tdpInfo = data.split("|").map((v) => v.trim());
+  const tdpInfo = data?.split("|")?.map((v) => v?.trim()) || [];
   // eslint-disable-next-line no-restricted-syntax
   for (const [i, v] of tdpInfo.entries()) {
     if (v === "STAPM LIMIT") {
