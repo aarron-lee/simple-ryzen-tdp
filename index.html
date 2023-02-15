@@ -93,5 +93,30 @@
     </div>
   </body>
 
+  <dialog id="introDialog" open>
+    <h2>Introduction</h2>
+    <p>
+      For the app to work properly, you must fill out the ryzenadj path input,
+      and configure ryzenadj for passwordless sudo
+    </p>
+
+    <p>
+      Instructions to do so are on the project's github page, found at
+      <a href="https://github.com/aarron-lee/simple-ryzen-tdp"
+        >https://github.com/aarron-lee/simple-ryzen-tdp</a
+      >
+    </p>
+
+    <form method="dialog" id="introDialogCloseForm">
+      <button type="submit">Close</button>
+      <input
+        type="checkbox"
+        id="disableIntroDialog"
+        name="disableIntroDialog"
+      />
+      <label for="disableIntroDialog">Don't show me this again</label>
+    </form>
+  </dialog>
+
   <script src="src/frontend/renderer.js"></script>
 </html>

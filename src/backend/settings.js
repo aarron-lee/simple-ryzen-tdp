@@ -7,6 +7,7 @@ const DEFAULT_SETTINGS = {
   isWindowHidden: false,
   ryzenadjPath: undefined,
   tdpRange: [5, 18],
+  showIntroDialog: true,
 };
 
 function initializeSettings(app) {

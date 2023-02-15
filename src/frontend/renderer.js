@@ -1,5 +1,7 @@
 const slider = document.getElementById("customTDP");
 const ryzenAdjPathInput = document.getElementById("ryzenadjPath");
+const closeDialogForm = document.getElementById("introDialogCloseForm");
+const introDialog = document.getElementById("introDialog");
 const defaultTdpForm = document.getElementById("defaultTdpForm");
 const clearDefaultTdpButton = document.getElementById("clearDefaultTdp");
 const tdpRangeForm = document.getElementById("tdpRange");
@@ -12,6 +14,7 @@ const RYZENADJ_PATH = "ryzenadjPath";
 const DEFAULT_TDP = "defaultTdp";
 const TDP_RANGE = "tdpRange";
 const PRESERVE_TDP_ON_SUSPEND = "preserveTdpOnSuspend";
+const DISABLE_INTRO_DIALOG = "disableIntroDialog";
 
 function getSettings() {
   return JSON.parse(window.localStorage.getItem(SETTINGS));
@@ -32,15 +35,29 @@ function updateNodesWithTdpRange(min, max) {
   maxTdpInput.value = max;
 }
 
+function handleIntroDialog() {
+  const disableIntroDialog = JSON.parse(
+    window.localStorage.getItem(DISABLE_INTRO_DIALOG)
+  );
+
+  if (disableIntroDialog) {
+    introDialog.open = false;
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
+  handleIntroDialog();
+
   const settings = getSettings();
   const ryzenadjPath = settings[RYZENADJ_PATH];
   const defaultTdp = settings[DEFAULT_TDP];
   const tdpRange = settings[TDP_RANGE];
   const preserveTdpOnSuspend = settings[PRESERVE_TDP_ON_SUSPEND];
   const { appVersion } = settings;
-  if (appVersion)
+
+  if (appVersion) {
     document.getElementById("appVersion").innerHTML = `v${appVersion}`;
+  }
   if (ryzenadjPath) {
     ryzenAdjPathInput.value = ryzenadjPath;
   }
@@ -115,4 +132,12 @@ window.ipcRender.receive("tdpInfo", (data, currentTdp) => {
 
 window.ipcRender.receive("updateSettings", (settings) => {
   window.localStorage.setItem("settings", JSON.stringify(settings, null, 2));
+});
+
+closeDialogForm.addEventListener("submit", (e) => {
+  const values = Array.from(new FormData(closeDialogForm));
+  if (values.length > 0) {
+    // end user has opted to disable showing intro dialog, persist to settings
+    window.localStorage.setItem(DISABLE_INTRO_DIALOG, true);
+  }
 });
