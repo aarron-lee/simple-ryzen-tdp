@@ -38,6 +38,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const defaultTdp = settings[DEFAULT_TDP];
   const tdpRange = settings[TDP_RANGE];
   const preserveTdpOnSuspend = settings[PRESERVE_TDP_ON_SUSPEND];
+  const { appVersion } = settings;
+  if (appVersion)
+    document.getElementById("appVersion").innerHTML = `v${appVersion}`;
   if (ryzenadjPath) {
     ryzenAdjPathInput.value = ryzenadjPath;
   }
