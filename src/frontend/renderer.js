@@ -40,8 +40,8 @@ function handleIntroDialog() {
     window.localStorage.getItem(DISABLE_INTRO_DIALOG)
   );
 
-  if (disableIntroDialog) {
-    introDialog.open = false;
+  if (!disableIntroDialog) {
+    introDialog.open = true;
   }
 }
 
