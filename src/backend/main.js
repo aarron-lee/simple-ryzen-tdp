@@ -81,29 +81,38 @@ function setTdp(tdp) {
 
   const tdpArgs = ["-a", targetTdp, "-b", boostTdp, "-c", targetTdp];
 
-  const script = ryzenadj(tdpArgs);
+  let script;
 
-  // console.log(`PID: ${script.pid}`);
+  try {
+    script = ryzenadj(tdpArgs);
+  } catch (e) {
+    // ryzenadj failed, shortcircuit
+    return;
+  }
 
-  script.stdout.on("data", (data) => {
-    console.log(`success stdout: ${data}`);
+  if (script) {
+    console.log(`script PID: ${script.pid}`);
 
-    // success, fetch TDP data + send back to renderer
-    sendTdpData();
+    script.stdout.on("data", (data) => {
+      console.log(`success stdout: ${data}`);
 
-    // upate context menu
-    // eslint-disable-next-line no-use-before-define
-    const contextMenu = createContextMenu(tdp);
-    tray?.setContextMenu(contextMenu);
-  });
+      // success, fetch TDP data + send back to renderer
+      sendTdpData();
 
-  script.stderr.on("data", (err) => {
-    console.log(`stderr: ${err}`);
-  });
+      // upate context menu
+      // eslint-disable-next-line no-use-before-define
+      const contextMenu = createContextMenu(tdp);
+      tray?.setContextMenu(contextMenu);
+    });
 
-  script.on("exit", (code) => {
-    console.log(`Exit Code: ${code}`);
-  });
+    script.stderr.on("data", (err) => {
+      console.log(`stderr: ${err}`);
+    });
+
+    script.on("exit", (code) => {
+      console.log(`Exit Code: ${code}`);
+    });
+  }
 }
 
 function createContextMenu(currentTdp) {
