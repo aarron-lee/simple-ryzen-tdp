@@ -2,7 +2,7 @@ const path = require("path");
 const fs = require("fs");
 
 const DEFAULT_SETTINGS = {
-  appVerson: undefined,
+  appVersion: undefined,
   defaultTdp: undefined,
   isWindowHidden: false,
   ryzenadjPath: undefined,
