@@ -4,6 +4,7 @@ const closeDialogForm = document.getElementById("introDialogCloseForm");
 const introDialog = document.getElementById("introDialog");
 const defaultTdpForm = document.getElementById("defaultTdpForm");
 const clearDefaultTdpButton = document.getElementById("clearDefaultTdp");
+const quitAppButton = document.getElementById("quitApp");
 const tdpRangeForm = document.getElementById("tdpRange");
 const preserveTdpOnSuspendCheckbox = document.getElementById(
   "preserveTdpOnSuspend"
@@ -74,6 +75,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 preserveTdpOnSuspendCheckbox.addEventListener("click", (e) => {
   window.ipcRender.send("preserveTdpOnSuspend", e.target.checked);
+});
+
+quitAppButton.addEventListener("click", () => {
+  window.ipcRender.send("quitApp");
 });
 
 defaultTdpForm.addEventListener("submit", (e) => {

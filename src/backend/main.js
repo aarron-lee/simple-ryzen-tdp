@@ -267,6 +267,10 @@ ipcMain.addListener("preserveTdpOnSuspend", () => {
   setItem(PRESERVE_TDP_ON_SUSPEND, !settings[PRESERVE_TDP_ON_SUSPEND]);
 });
 
+ipcMain.addListener("quitApp", () => {
+  app.quit();
+});
+
 ipcMain.addListener("updateTdp", (e, tdp) => {
   setTdp(tdp);
 });
