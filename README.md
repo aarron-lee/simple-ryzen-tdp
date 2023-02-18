@@ -12,7 +12,7 @@ This is a very simple Linux TDP app that wraps ryzenadj
 
 # Installation
 
-There is a generic install script, found [here](https://github.com/aarron-lee/simple-ryzen-tdp/blob/main/install.sh),  which installs [appimagelauncher-lite](https://github.com/TheAssassin/AppImageLauncher) and the tdp app
+There is a generic install script, found [here](https://github.com/aarron-lee/simple-ryzen-tdp/blob/main/install.sh), which installs [appimagelauncher-lite](https://github.com/TheAssassin/AppImageLauncher) and the tdp app
 
 The script assumes you already have ryzenadj installed. If not, you will need to compile a ryzenadj binary, see [ryzenadj readme](https://github.com/FlyGoat/RyzenAdj#installation). You could also try downloading a ryzenadj binary (e.g. [here](https://github.com/ShadowBlip/HandyPT/blob/af496071600d44f24bf36cdc087c18fc1b1865da/bin/ryzenadj)), but I take no responsibility for whether it works or not.
 
@@ -50,6 +50,22 @@ chmod +x /home/gamer/Downloads/chimeraos_install.sh
 sudo /home/gamer/Downloads/chimeraos_install.sh
 /home/gamer/Downloads/chimeraos_install.sh
 ```
+
+# Configuring Ryzenadj
+
+If you used the `install.sh` or `chimeraos_install.sh` with sudo, passwordless sudo for ryzenadj should already be configured and working for you.
+
+otherwise, in terminal/console, download + run the [configure.sh](https://github.com/aarron-lee/simple-ryzen-tdp/blob/main/configure.sh) script for to enable password-less sudo access to the ryzenadj binary
+
+e.g.
+
+```bash
+sudo ./configure.sh path_to_ryzenadj_binary
+# e.g.
+sudo ./configure.sh /home/username/applications
+```
+
+once complete, you should be able to run `sudo ryzenadj -i` in a new terminal window without being prompted for a password.
 
 # Manual Build
 
