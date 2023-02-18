@@ -2,8 +2,8 @@
 # script needs to be run twice, once with sudo, another without sudo
 
 FILE=/usr/bin/ryzenadj
-APP_VERSION=v1.0.3
-APPIMAGE_NAME=SimpleRyzenTDP-1.0.3.AppImage
+APP_VERSION=v1.0.4
+APPIMAGE_NAME=SimpleRyzenTDP-1.0.4.AppImage
 
 if test -f "$FILE"; then
     echo "$FILE exists."
