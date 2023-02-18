@@ -129,18 +129,22 @@ function createContextMenu(currentTdp) {
 
   const settings = getSettings();
 
-  const [min, max] = settings.tdpRange;
+  const [min, max] = settings.tdpRange || [];
 
-  const tdpOptions = _.range(min, max + 1).map((v) => ({
-    label: `${v}W TDP`,
-    type: "radio",
-    value: v,
-    checked: currentTdp === v,
-    click: (e) => {
-      const tdp = e.value;
-      setTdp(tdp);
-    },
-  }));
+  let tdpOptions = [];
+
+  if (Number.isInteger(min) && Number.isInteger(max)) {
+    tdpOptions = _.range(min, max + 1).map((v) => ({
+      label: `${v}W TDP`,
+      type: "radio",
+      value: v,
+      checked: currentTdp === v,
+      click: (e) => {
+        const tdp = e.value;
+        setTdp(tdp);
+      },
+    }));
+  }
 
   const contextMenu = Menu.buildFromTemplate([
     { label: "Toggle Window", click: toggleWindow },
