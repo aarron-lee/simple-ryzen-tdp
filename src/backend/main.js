@@ -223,6 +223,9 @@ function createWindow() {
 app.whenReady().then(() => {
   createWindow();
 
+  const settings = getSettings();
+  window.webContents.send("updateSettings", settings);
+
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) {
       createWindow();
