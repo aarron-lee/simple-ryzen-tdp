@@ -44,6 +44,9 @@ function initializeSettings(app) {
 
   const getSettings = () => settings;
 
+  // save settings to disk on initialization
+  saveSettings();
+
   return { getSettings, setItem, getItem };
 }
 
