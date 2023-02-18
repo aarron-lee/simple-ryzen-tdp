@@ -36,6 +36,33 @@ function updateNodesWithTdpRange(min, max) {
   maxTdpInput.value = max;
 }
 
+function handleSettingsUpdate() {
+  const settings = getSettings();
+  if (settings) {
+    const ryzenadjPath = settings[RYZENADJ_PATH];
+    const defaultTdp = settings[DEFAULT_TDP];
+    const tdpRange = settings[TDP_RANGE];
+    const preserveTdpOnSuspend = settings[PRESERVE_TDP_ON_SUSPEND];
+    const { appVersion } = settings;
+
+    if (appVersion) {
+      document.getElementById("appVersion").innerHTML = `v${appVersion}`;
+    }
+    if (ryzenadjPath) {
+      ryzenAdjPathInput.value = ryzenadjPath;
+    }
+    if (defaultTdp) {
+      document.getElementById("defaultTdp").value = defaultTdp;
+    }
+    if (tdpRange) {
+      updateNodesWithTdpRange(...tdpRange);
+    }
+    if (preserveTdpOnSuspend) {
+      preserveTdpOnSuspendCheckbox.checked = true;
+    }
+  }
+}
+
 function handleIntroDialog() {
   const disableIntroDialog = JSON.parse(
     window.localStorage.getItem(DISABLE_INTRO_DIALOG)
@@ -49,28 +76,7 @@ function handleIntroDialog() {
 document.addEventListener("DOMContentLoaded", () => {
   handleIntroDialog();
 
-  const settings = getSettings();
-  const ryzenadjPath = settings[RYZENADJ_PATH];
-  const defaultTdp = settings[DEFAULT_TDP];
-  const tdpRange = settings[TDP_RANGE];
-  const preserveTdpOnSuspend = settings[PRESERVE_TDP_ON_SUSPEND];
-  const { appVersion } = settings;
-
-  if (appVersion) {
-    document.getElementById("appVersion").innerHTML = `v${appVersion}`;
-  }
-  if (ryzenadjPath) {
-    ryzenAdjPathInput.value = ryzenadjPath;
-  }
-  if (defaultTdp) {
-    document.getElementById("defaultTdp").value = defaultTdp;
-  }
-  if (tdpRange) {
-    updateNodesWithTdpRange(...tdpRange);
-  }
-  if (preserveTdpOnSuspend) {
-    preserveTdpOnSuspendCheckbox.checked = true;
-  }
+  handleSettingsUpdate();
 });
 
 preserveTdpOnSuspendCheckbox.addEventListener("click", (e) => {
@@ -137,6 +143,7 @@ window.ipcRender.receive("tdpInfo", (data, currentTdp) => {
 
 window.ipcRender.receive("updateSettings", (settings) => {
   window.localStorage.setItem("settings", JSON.stringify(settings, null, 2));
+  handleSettingsUpdate();
 });
 
 closeDialogForm.addEventListener("submit", (e) => {
