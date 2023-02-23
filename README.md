@@ -35,6 +35,8 @@ sudo ./install.sh /usr/bin/ryzenadj
 
 # ChimeraOS install script
 
+Setup video guide can be found on youtube [here](https://www.youtube.com/watch?v=N7C0kYVXoxk)
+
 There is an install script for ChimeraOS 38 or higher, found [here](https://github.com/aarron-lee/simple-ryzen-tdp/blob/main/chimeraos_install.sh)
 
 make it executable with either `chmod +x` or in the script file's properties. Then run it twice, once with sudo, once without sudo. default sudo pass is `gamer`
