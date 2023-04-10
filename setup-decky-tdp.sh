@@ -28,4 +28,6 @@ curl -OL https://github.com/aarron-lee/simple-ryzen-tdp/files/11186329/PowerCont
 
 tar -xvzf ./PowerControl.tar.gz -C /home/gamer/homebrew/plugins/
 
+rm ./PowerControl.tar.gz
+
 echo "done, reboot for your changes to take effect"
