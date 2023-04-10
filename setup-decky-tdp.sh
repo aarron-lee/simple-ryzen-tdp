@@ -14,7 +14,7 @@ curl -OL https://raw.githubusercontent.com/ruineka/chimeraos-hack-tools/main/hac
 
 chmod +x ./chimeraos-enable-amdpstate.sh
 
-./chimeraos-enable-amdpstate.sh
+sudo ./chimeraos-enable-amdpstate.sh
 
 rm ./chimeraos-enable-amdpstate.sh
 
@@ -26,7 +26,7 @@ curl -L https://github.com/SteamDeckHomebrew/decky-installer/releases/latest/dow
 
 curl -OL https://github.com/aarron-lee/simple-ryzen-tdp/files/11186329/PowerControl.tar.gz
 
-tar -xvzf ./PowerControl.tar.gz -C /home/gamer/homebrew/plugins/
+sudo tar -xvzf ./PowerControl.tar.gz -C /home/gamer/homebrew/plugins/
 
 rm ./PowerControl.tar.gz
 
