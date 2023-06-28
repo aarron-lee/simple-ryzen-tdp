@@ -65,12 +65,13 @@ function getCurrentTdp(callback) {
   });
 }
 
-function sendTdpData() {
+function sendTdpData(tdpValue = undefined) {
   getAllTdpInfo((parsedData) => {
+    const extractedTdpValue = extractCurrentTdp(parsedData);
     window.webContents.send(
       "tdpInfo",
       parsedData,
-      extractCurrentTdp(parsedData)
+      typeof extractedTdpValue === "number" ? extractedTdpValue : tdpValue
     );
   });
 }
@@ -97,9 +98,9 @@ function setTdp(tdp) {
       console.log(`success stdout: ${data}`);
 
       // success, fetch TDP data + send back to renderer
-      sendTdpData();
+      sendTdpData(tdp);
 
-      // upate context menu
+      // update context menu
       // eslint-disable-next-line no-use-before-define
       const contextMenu = createContextMenu(tdp);
       tray?.setContextMenu(contextMenu);
