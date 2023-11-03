@@ -8,8 +8,8 @@
 #     sudo ./install.sh /usr/local/bin/ryzenadj
 
 FILE=$1
-APP_VERSION=v1.0.5
-APPIMAGE_NAME=SimpleRyzenTDP-1.0.5.AppImage
+APP_VERSION=v1.0.6
+APPIMAGE_NAME=SimpleRyzenTDP-1.0.6.AppImage
 
 if test -f "$FILE"; then
     echo "$FILE exists."
