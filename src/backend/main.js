@@ -71,7 +71,9 @@ function sendTdpData(tdpValue = undefined) {
     window.webContents.send(
       "tdpInfo",
       parsedData,
-      typeof extractedTdpValue === "number" ? extractedTdpValue : tdpValue
+      tdpValue
+      // ignore extracted TDP value for now, ryzenadj seems to be providing inconsistent numbers on Phoenix
+      // typeof extractedTdpValue === "number" ? extractedTdpValue : tdpValue
     );
   });
 }
@@ -80,7 +82,7 @@ function setTdp(tdp) {
   const targetTdp = Number(tdp) * 1000;
   const boostTdp = targetTdp + 2000;
 
-  const tdpArgs = ["-a", targetTdp, "-b", boostTdp, "-c", targetTdp];
+  const tdpArgs = ["--stapm-limit", targetTdp, "--fast-limit", boostTdp, "--slow-limit", targetTdp];
 
   let script;
 
