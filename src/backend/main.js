@@ -11,6 +11,7 @@ const RYZENADJ_PATH = "ryzenadjPath";
 const IS_WINDOW_HIDDEN = "isWindowHidden";
 const DEFAULT_TDP = "defaultTdp";
 const PRESERVE_TDP_ON_SUSPEND = "preserveTdpOnSuspend";
+const REFRESH_TDP_TABLE = "refreshTdpTable"
 const PRESERVED_TDP = "preservedTdp";
 
 const { setItem: setValue, getItem, getSettings } = initializeSettings(app);
@@ -270,6 +271,15 @@ ipcMain.addListener("updateTdpRange", (e, tdpRange) => {
 ipcMain.addListener("setRyzenadjPath", (_, ryzenadjPath) => {
   setItem(RYZENADJ_PATH, ryzenadjPath);
 });
+
+ipcMain.addListener(REFRESH_TDP_TABLE, () => {
+    getAllTdpInfo((parsedData) => {
+    window.webContents.send(
+      "tdpTable",
+      parsedData,
+    );
+  });
+})
 
 ipcMain.addListener("preserveTdpOnSuspend", () => {
   const settings = getSettings();

@@ -9,6 +9,7 @@ const tdpRangeForm = document.getElementById("tdpRange");
 const preserveTdpOnSuspendCheckbox = document.getElementById(
   "preserveTdpOnSuspend"
 );
+const refreshTdpTableButton = document.getElementById("refreshTdpTable")
 
 const SETTINGS = "settings";
 const RYZENADJ_PATH = "ryzenadjPath";
@@ -79,6 +80,10 @@ document.addEventListener("DOMContentLoaded", () => {
   handleSettingsUpdate();
 });
 
+refreshTdpTableButton.addEventListener("click", e => {
+  window.ipcRender.send("refreshTdpTable")
+})
+
 preserveTdpOnSuspendCheckbox.addEventListener("click", (e) => {
   window.ipcRender.send("preserveTdpOnSuspend", e.target.checked);
 });
@@ -140,6 +145,10 @@ window.ipcRender.receive("tdpInfo", (data, currentTdp) => {
     document.getElementById("tdpView").innerHTML = `- ${currentTdp}W`;
   }
 });
+
+window.ipcRender.receive("tdpTable", data => {
+    document.getElementById("tdpDetails").innerHTML = data;
+})
 
 window.ipcRender.receive("updateSettings", (settings) => {
   window.localStorage.setItem("settings", JSON.stringify(settings, null, 2));
