@@ -144,6 +144,12 @@ window.ipcRender.receive("tdpInfo", (data, currentTdp) => {
     slider.value = `${currentTdp}`;
     document.getElementById("tdpView").innerHTML = `- ${currentTdp}W`;
   }
+
+  // Lenovo Legion Go changes STAPM Limit to match FAST Limit.
+  // this is a temporary workaround to make sure the table is not stale
+  setTimeout(() => {
+    window.ipcRender.send("refreshTdpTable")
+  }, 1200)
 });
 
 window.ipcRender.receive("tdpTable", data => {
