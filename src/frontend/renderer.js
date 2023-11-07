@@ -18,6 +18,8 @@ const TDP_RANGE = "tdpRange";
 const PRESERVE_TDP_ON_SUSPEND = "preserveTdpOnSuspend";
 const DISABLE_INTRO_DIALOG = "disableIntroDialog";
 
+let tdpRefresher = undefined;
+
 function getSettings() {
   return JSON.parse(window.localStorage.getItem(SETTINGS));
 }
@@ -129,6 +131,14 @@ slider.addEventListener("change", (e) => {
   const targetTDP = Number(e.target.value);
 
   window.ipcRender.send("updateTdp", targetTDP);
+
+  if(tdpRefresher) {
+    clearInterval(tdpRefresher)
+  }
+
+  tdpRefresher = setInterval(() => {
+    window.ipcRender.send("updateTdp", targetTDP);
+  }, 500)
 });
 
 ryzenAdjPathInput.addEventListener("change", (e) => {
