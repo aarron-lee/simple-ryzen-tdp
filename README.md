@@ -4,7 +4,7 @@ This is a very simple Linux TDP app that wraps ryzenadj
 
 ## App Window
 
-![screenshot](https://user-images.githubusercontent.com/9145965/207160968-9ac6d4b8-cb00-4d81-9223-a712650e49cb.png)
+![screenshot](https://github-production-user-asset-6210df.s3.amazonaws.com/9145965/281605251-ba704369-3d01-4166-90b0-d86f66ad83f2.png)
 
 ## Tray Icon
 
