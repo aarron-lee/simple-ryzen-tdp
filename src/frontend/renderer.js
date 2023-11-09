@@ -9,6 +9,9 @@ const tdpRangeForm = document.getElementById("tdpRange");
 const preserveTdpOnSuspendCheckbox = document.getElementById(
   "preserveTdpOnSuspend"
 );
+const pollTdpCheckbox = document.getElementById(
+  "pollTdp"
+);
 const refreshTdpTableButton = document.getElementById("refreshTdpTable")
 
 const SETTINGS = "settings";
@@ -16,6 +19,7 @@ const RYZENADJ_PATH = "ryzenadjPath";
 const DEFAULT_TDP = "defaultTdp";
 const TDP_RANGE = "tdpRange";
 const PRESERVE_TDP_ON_SUSPEND = "preserveTdpOnSuspend";
+const POLL_TDP = "pollTdp";
 const DISABLE_INTRO_DIALOG = "disableIntroDialog";
 
 let tdpRefresher = undefined;
@@ -46,6 +50,7 @@ function handleSettingsUpdate() {
     const defaultTdp = settings[DEFAULT_TDP];
     const tdpRange = settings[TDP_RANGE];
     const preserveTdpOnSuspend = settings[PRESERVE_TDP_ON_SUSPEND];
+    const pollTdp = settings[POLL_TDP];
     const { appVersion } = settings;
 
     if (appVersion) {
@@ -62,6 +67,9 @@ function handleSettingsUpdate() {
     }
     if (preserveTdpOnSuspend) {
       preserveTdpOnSuspendCheckbox.checked = true;
+    }
+    if (pollTdp) {
+      pollTdpCheckbox.checked = true;
     }
   }
 }
@@ -88,6 +96,10 @@ refreshTdpTableButton.addEventListener("click", e => {
 
 preserveTdpOnSuspendCheckbox.addEventListener("click", (e) => {
   window.ipcRender.send("preserveTdpOnSuspend", e.target.checked);
+});
+
+pollTdpCheckbox.addEventListener("click", (e) => {
+  window.ipcRender.send("pollTdp", e.target.checked);
 });
 
 quitAppButton.addEventListener("click", () => {
@@ -136,9 +148,15 @@ slider.addEventListener("change", (e) => {
     clearInterval(tdpRefresher)
   }
 
-  tdpRefresher = setInterval(() => {
-    window.ipcRender.send("updateTdp", targetTDP);
-  }, 500)
+  const settings = getSettings()
+
+  const pollTdp = settings[POLL_TDP]
+
+  if(pollTdp) {
+    tdpRefresher = setInterval(() => {
+      window.ipcRender.send("updateTdp", targetTDP);
+    }, 500)
+  }
 });
 
 ryzenAdjPathInput.addEventListener("change", (e) => {
@@ -154,12 +172,6 @@ window.ipcRender.receive("tdpInfo", (data, currentTdp) => {
     slider.value = `${currentTdp}`;
     document.getElementById("tdpView").innerHTML = `- ${currentTdp}W`;
   }
-
-  // Lenovo Legion Go changes STAPM Limit to match FAST Limit.
-  // this is a temporary workaround to make sure the table is not stale
-  setTimeout(() => {
-    window.ipcRender.send("refreshTdpTable")
-  }, 1200)
 });
 
 window.ipcRender.receive("tdpTable", data => {

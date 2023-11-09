@@ -11,6 +11,7 @@ const RYZENADJ_PATH = "ryzenadjPath";
 const IS_WINDOW_HIDDEN = "isWindowHidden";
 const DEFAULT_TDP = "defaultTdp";
 const PRESERVE_TDP_ON_SUSPEND = "preserveTdpOnSuspend";
+const POLL_TDP= "pollTdp";
 const REFRESH_TDP_TABLE = "refreshTdpTable"
 const PRESERVED_TDP = "preservedTdp";
 
@@ -284,6 +285,12 @@ ipcMain.addListener("preserveTdpOnSuspend", () => {
   const settings = getSettings();
 
   setItem(PRESERVE_TDP_ON_SUSPEND, !settings[PRESERVE_TDP_ON_SUSPEND]);
+});
+
+ipcMain.addListener("pollTdp", () => {
+  const settings = getSettings();
+
+  setItem(POLL_TDP, !settings[POLL_TDP]);
 });
 
 ipcMain.addListener("quitApp", () => {

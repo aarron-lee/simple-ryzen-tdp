@@ -8,6 +8,7 @@ const DEFAULT_SETTINGS = {
   ryzenadjPath: undefined,
   tdpRange: [5, 18],
   showIntroDialog: true,
+  pollTdp: false,
 };
 
 function initializeSettings(app) {
