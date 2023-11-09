@@ -290,7 +290,9 @@ ipcMain.addListener("preserveTdpOnSuspend", () => {
 ipcMain.addListener("pollTdp", () => {
   const settings = getSettings();
 
-  setItem(POLL_TDP, !settings[POLL_TDP]);
+  let result = !settings[POLL_TDP];
+
+  setItem(POLL_TDP, result);
 });
 
 ipcMain.addListener("quitApp", () => {

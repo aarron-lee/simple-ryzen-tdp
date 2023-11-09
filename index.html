@@ -91,7 +91,7 @@
         <label class="form-label" for="pollTdp"
           >poll current TDP</label
         >
-        <input type="checkbox" id="pollTdp" />
+        <input type="checkbox" id="pollTdp" /><button type="button" id="pollTdpInfoButton">?</button>
       </span>
       <br />
       <span id="appVersion"></span>
@@ -129,6 +129,16 @@
       />
       <label for="disableIntroDialog">Don't show me this again</label>
     </form>
+  </dialog>
+
+  <dialog id="pollTdpDialog" closed>
+    <h2>Poll TDP</h2>
+
+    <p>This option repeatedly sets the TDP every 500ms (half a second). This is for devices that constantly reset the TDP to some other value</p>
+
+    <p>Note that after enabling or disabling this option, you need to set the TDP one more time for it to start/stop polling TDP</p>
+
+    <button type="button" id="closePollTdpDialog">Close</button>
   </dialog>
 
   <script src="src/frontend/renderer.js"></script>

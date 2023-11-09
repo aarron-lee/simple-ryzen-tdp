@@ -21,6 +21,7 @@ const TDP_RANGE = "tdpRange";
 const PRESERVE_TDP_ON_SUSPEND = "preserveTdpOnSuspend";
 const POLL_TDP = "pollTdp";
 const DISABLE_INTRO_DIALOG = "disableIntroDialog";
+const POLL_TDP_INFO = ""
 
 let tdpRefresher = undefined;
 
@@ -145,7 +146,8 @@ slider.addEventListener("change", (e) => {
   window.ipcRender.send("updateTdp", targetTDP);
 
   if(tdpRefresher) {
-    clearInterval(tdpRefresher)
+    clearInterval(tdpRefresher);
+    tdpRefresher = undefined;
   }
 
   const settings = getSettings()
@@ -155,7 +157,7 @@ slider.addEventListener("change", (e) => {
   if(pollTdp) {
     tdpRefresher = setInterval(() => {
       window.ipcRender.send("updateTdp", targetTDP);
-    }, 500)
+    }, 500);
   }
 });
 
@@ -190,3 +192,15 @@ closeDialogForm.addEventListener("submit", (e) => {
     window.localStorage.setItem(DISABLE_INTRO_DIALOG, true);
   }
 });
+
+document.getElementById("pollTdpInfoButton").addEventListener("click", () => {
+  const dialog = document.getElementById("pollTdpDialog")
+
+  dialog.showModal()
+})
+
+document.getElementById("closePollTdpDialog").addEventListener("click", () => {
+  const dialog = document.getElementById("pollTdpDialog")
+
+  dialog.close()
+})
