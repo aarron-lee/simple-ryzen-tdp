@@ -16,7 +16,7 @@
   "build": {
     "appId": "com.aarronlee.simple-ryzen-tdp",
     "productName": "Simple Ryzen TDP",
-    "artifactName": "SimpleRyzenTDP-${version}.${ext}",
+    "artifactName": "SimpleRyzenTDP.${ext}",
     "files": [
       "**/*",
       "node_modules/**/*"
