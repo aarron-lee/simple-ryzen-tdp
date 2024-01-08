@@ -80,8 +80,9 @@ function sendTdpData(tdpValue = undefined) {
 
 function setTdp(tdp) {
   const targetTdp = Number(tdp) * 1000;
+  const boostTdp = targetTdp + 2000;
 
-  const tdpArgs = ["--stapm-limit", targetTdp, "--fast-limit", targetTdp, "--slow-limit", targetTdp];
+  const tdpArgs = ["--stapm-limit", targetTdp, "--fast-limit", boostTdp, "--slow-limit", targetTdp];
 
   let script;
 
