@@ -73,9 +73,7 @@ function sendTdpData(tdpValue = undefined) {
     window.webContents.send(
       "tdpInfo",
       parsedData,
-      tdpValue
-      // ignore extracted TDP value for now, ryzenadj seems to be providing inconsistent numbers on Phoenix
-      // typeof extractedTdpValue === "number" ? extractedTdpValue : tdpValue
+      typeof extractedTdpValue === "number" ? extractedTdpValue : tdpValue
     );
   });
 }
