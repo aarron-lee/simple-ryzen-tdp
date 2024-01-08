@@ -8,8 +8,7 @@
 #     sudo ./install.sh /usr/local/bin/ryzenadj
 
 FILE=$1
-APP_VERSION=v1.0.8
-APPIMAGE_NAME=SimpleRyzenTDP-1.0.8.AppImage
+APPIMAGE_NAME=SimpleRyzenTDP.AppImage
 
 if test -f "$FILE"; then
     echo "$FILE exists."
@@ -31,7 +30,7 @@ if [ "$EUID" -ne 0 ]; then
 	echo "installing appimagelauncher lite"
 	./appimagelauncher-lite-2.2.0-travis995-0f91801-x86_64.AppImage install
 
-	curl -L https://github.com/aarron-lee/simple-ryzen-tdp/releases/download/$APP_VERSION/$APPIMAGE_NAME > ./$APPIMAGE_NAME
+	curl -L $(curl -s https://api.github.com/repos/aarron-lee/simple-ryzen-tdp/releases/latest | grep "browser_download_url" | cut -d '"' -f 4) -o $HOME/Applications/$APPIMAGE_NAME
 
 	chmod +x $APPIMAGE_NAME
 

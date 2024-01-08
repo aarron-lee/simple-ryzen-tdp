@@ -1,6 +1,6 @@
 {
   "name": "simple-ryzen-tdp",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "simple TDP control for ryzenadj",
   "main": "src/backend/main.js",
   "scripts": {
