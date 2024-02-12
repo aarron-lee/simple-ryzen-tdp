@@ -10,11 +10,49 @@ This is a very simple Linux TDP app that wraps ryzenadj
 
 ![screenshot](https://user-images.githubusercontent.com/9145965/218102072-657bca4f-cf9d-456c-a804-34523548de43.png)
 
+## Requirements
+
+### WARNING: This plugin assumes you already have ryzenadj installed and working
+
+ChimeraOS, Bazzite Deck Edition, and NobaraOS Deck edition, should already have ryzenadj pre-installed. 
+
+To check this, you can run `which ryzenadj` in a terminal/console, which should print out the path to a ryzenadj binary.
+
+e.g.
+
+```
+$ which ryzenadj
+/usr/bin/ryzenadj
+```
+
+If you do not have ryzenadj installed, you will need to get a working copy installed onto your machine.
+
+To test your ryzenadj to make sure that it's functional, run the following:
+
+```
+$ sudo ryzenadj -i
+```
+
+This should print out a table that looks something like the following:
+
+```
+CPU Family: Rembrandt
+SMU BIOS Interface Version: 18
+Version: v0.13.0
+PM Table Version: 450005
+|        Name         |   Value   |     Parameter      |
+|---------------------|-----------|--------------------|
+| STAPM LIMIT         |     8.000 | stapm-limit        |
+| STAPM VALUE         |     0.062 |                    |
+```
+
+If you see an error, you may need to set `iomem=relaxed` as a boot parameter for your kernel, or disable secure boot.
+
 # Installation
 
 There is a generic install script, found [here](https://github.com/aarron-lee/simple-ryzen-tdp/blob/main/install.sh), which installs [appimagelauncher-lite](https://github.com/TheAssassin/AppImageLauncher) and the tdp app
 
-The script assumes you already have ryzenadj installed. If not, you will need to compile a ryzenadj binary, see [ryzenadj readme](https://github.com/FlyGoat/RyzenAdj#installation). You could also try downloading a ryzenadj binary (e.g. [here](https://github.com/ShadowBlip/HandyPT/blob/af496071600d44f24bf36cdc087c18fc1b1865da/bin/ryzenadj)), but I take no responsibility for whether it works or not.
+The script assumes you already have ryzenadj installed. If not, you will need to compile a ryzenadj binary, see [ryzenadj readme](https://github.com/FlyGoat/RyzenAdj#installation).
 
 Note, for 6800u chipsets, you may need to add `iomem=relaxed` as a boot parameter for ryzenadj to work, see github issue [here](https://github.com/FlyGoat/RyzenAdj/issues/210) for discussion.
 
