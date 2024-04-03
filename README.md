@@ -12,7 +12,7 @@ This is a very simple Linux TDP app that wraps ryzenadj
 
 ## Requirements
 
-### WARNING: This plugin assumes you already have ryzenadj installed and working
+### WARNING: This app assumes you already have ryzenadj installed and working
 
 ChimeraOS, Bazzite Deck Edition, and NobaraOS Deck edition, should already have ryzenadj pre-installed.
 
