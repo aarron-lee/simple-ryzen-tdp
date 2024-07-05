@@ -52,7 +52,7 @@ function extractCurrentTdp(data) {
   const tdpInfo = data?.split("|")?.map((v) => v?.trim()) || [];
   // eslint-disable-next-line no-restricted-syntax
   for (const [i, v] of tdpInfo.entries()) {
-    if (v === "STAPM LIMIT") {
+    if (v === "PPT LIMIT SLOW") {
       currentTdp = Number(tdpInfo[i + 1]);
       break;
     }
