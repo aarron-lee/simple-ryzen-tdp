@@ -2,7 +2,9 @@
 
 [![](https://img.shields.io/github/downloads/aarron-lee/simple-ryzen-tdp/total.svg)](https://github.com/aarron-lee/simple-ryzen-tdp/releases)
 
-This is a very simple Linux TDP app that wraps ryzenadj
+This is a very simple Linux TDP app that wraps ryzenadj.
+
+Note, while this app should still work fine, there is another alternative I've created, found here: https://github.com/aarron-lee/SimpleDeckyTDP-Desktop
 
 ## App Window
 
